@@ -14,7 +14,7 @@
                                 <div class="d-widget-content">
                                     <span class="realtime-ico pulse"></span>
                                     <h6><a href="{{ route('subject.questions', $subject->id) }}">Create Quiz</a></h6>
-                                    <h5>223</h5>
+                                    <h5>{{ $subject->questions->count() }}</h5>
                                     <i class="icofont-light-bulb"></i>  
                                 </div>
                             </div>

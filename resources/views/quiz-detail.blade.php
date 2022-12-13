@@ -54,16 +54,17 @@
                 <div class="row merged20 mb-4">
                     <div class="col-lg-8 col-md-6 col-sm-12">
                         <div class="uk-margin bg-light p-3">
-                            <h4 class="main-title">{{ $subject_title }} Quiz</h4>
-                            <select class="uk-select" name="topic">
+                            <h4 class="main-title">{{ $subject_title }} Quiz <span id="topicName"></span></h4>
+                            <select class="uk-select" name="topic" id="topic">
+                                <option value="">-- Select topic --</option>
                                 @foreach ($topics as $topic)
-                                <option>-- Select topic --</option>
                                     <option value="{{ $topic->id }}">{{ $topic->topic }}</option>
                                 @endforeach
                             </select>
                         </div>
-                        <div id="timer">
+                        <div class="uk-flex uk-flex-between" id="timer">
                             <h5 class="text-danger" id="counter"></h5>
+                            <div id="questionProgress"></div>
                         </div>
                         @if($questions->count() > 0)
                             <div class="d-widget">
@@ -122,6 +123,8 @@
                                     </div>
                                 </div>
                             </div>
+                        @else
+                            <p class="opacity-3 text-center h5">No question yet</p>
                         @endif
                     </div>
                     <div class="col-lg-4 col-md-6 col-sm-12">
@@ -149,33 +152,6 @@
         </div>
     </div>
 </div><!-- main content -->
-<script>
-    let level = document.getElementById("level")
-    level.addEventListener('change', 
-    
-    function getQuestionsByLevel(e)
-    {
-        // console.log(e.target.value)
-        let user_data = {
-            class_id: e.target.value
-        }
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        })
-        $.ajax({
-            url: '/quiz-detail/post',
-            method: 'post',
-            data: user_data, 
-            success: function()
-            {
-                console.log(user_data.class_id)
-            }
-        })
-    }
-    )
-</script>
 
 <script>
     // select all elements
@@ -193,7 +169,25 @@
     // const timeGauge = document.getElementById("timeGauge");
     // const progress = document.getElementById("progress");
     const scoreDiv = document.getElementById("scoreContainer");
-    const intruction = document.getElementById("instruction")
+    const intruction = document.getElementById("instruction");
+    let topic = document.getElementById("topic")
+    let topicName = document.getElementById("topicName")
+    let questionProgress = document.getElementById("questionProgress")
+
+    // get questions from db
+
+    topic.addEventListener("change", () => {
+        const url = "{{ route('display.quiz', ['id' => $subject->id, 'title' =>  $subject->title, 'level' => Auth::user()->level]) }}"
+        axios.post(url, {
+            quiz_topic: topic.value
+        })
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    })
 
     // convert questions to json format
 
@@ -221,8 +215,10 @@
         choiceC.innerHTML = q.C;
         choiceD.innerHTML = q.D;
 
-       
+        questionProgress.innerHTML = `<h5">${runningQuestion + 1} / ${questions.length}</h5>`
+
     }
+
 
     start.addEventListener("click",startQuiz);
 
@@ -263,11 +259,12 @@
     //     }
     // }
 
+
     // counter render
 
     function renderCounter(){
         if(count <= questionTime){
-            counter.innerHTML = "<span class='small'> Time elapsed: "+ count + " sec " + "</span>";
+            counter.innerHTML = `<span class='small'> <i class="icofont-clock-time"></i>  ${count} sec</span>`;
             // timeGauge.style.width = count * gaugeUnit + "px";
             count++
         }else{
@@ -281,7 +278,7 @@
                 // end the quiz and show the score
                 clearInterval(TIMER);
                 scoreRender();
-                counter.innerHTML = `<h5 class="text-danger">Time Elapsed</h5>`
+                counter.innerHTML = `<h5 class="text-danger"><i class="icofont-clock-time"></i> </h5>`
 
             }
         }
@@ -319,6 +316,7 @@
         }
 
     }
+
     // score render
     function scoreRender(){
         scoreDiv.style.display = "block";

@@ -25,9 +25,7 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard')->middleware('trial');
+    Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'dashboard'])->name('dashboard')->middleware('trial');
     
 // Admin Routes
 
@@ -38,20 +36,25 @@ Route::get('admin/dashboard/{id}/upgrade-plan', [App\Http\Controllers\Admin\Admi
 Route::get('quizzes', [App\Http\Controllers\QuizController::class, 'displayQuizzes'])->name('quizzes'); //->middleware('verify.payment'); //verify payment
 Route::get('/quiz/{id}/{title}/{level}', [App\Http\Controllers\QuizController::class, 'quizGenerator'])->name('display.quiz');
 Route::get('user_quiz/{quiz_id}/quiz-questions', [App\Http\Controllers\QuizController::class, 'createUserQuiz'])->name('user.quiz');
+// quiz practice mode 
+Route::get('/subjects', [App\Http\Controllers\QuizPracticeModeController::class, 'getSubjects'])->name('subjects');
+Route::get('/subjects/{subject_id}', [App\Http\Controllers\QuizPracticeModeController::class, 'getSubjectQuestions'])->name('questions');
+
 // add questions to quiz item
 Route::get('create-quiz/add-quiz-questions/{subject_id}/{quiz_id}', [App\Http\Controllers\QuizController::class, 'addQuizQuestions'])->name('add.quiz.questions');
 //save user quiz
 Route::post('/user_quiz/save-quiz', [App\Http\Controllers\QuizController::class, 'store'])->name('save.user.quiz');
 Route::post('/create-quiz/post', [App\Http\Controllers\QuestionsController::class, 'storeQuizTitle'])->name('quiz.create');
 //post quiz
-Route::get('/create-quiz', [App\Http\Controllers\QuestionsController::class, 'showQuestions'])->name('show.questions');
+Route::get('/create-quiz/subjects', [App\Http\Controllers\QuestionsController::class, 'showQuestions'])->name('show.questions');
 Route::get('/create-quiz/{subject_id}', [App\Http\Controllers\QuestionsController::class, 'subjectQuestions'])->name('subject.questions');
 Route::post('/questions-by-subject', [App\Http\Controllers\VerifyAnswerController::class, 'verifyAnswer'])->name('verify.answer');
 Route::get('questions/{subject}/{id}', [App\Http\Controllers\QuestionsController::class, 'getQuestion'])->name('single.question');
 Route::get('/questionsby-subject', [App\Http\Controllers\QuestionsController::class, 'sortQuestions'])->name('sort.questions');
-Route::get('questions/{subject}/{next_qid}', [App\Http\Controllers\QuestionsController::class, 'nextQuestion'])->name('next.question');
-Route::get('teams', [App\Http\Controllers\TeamController::class, 'getTeams'])->name('teams');
-Route::get('teams/{name}', [App\Http\Controllers\TeamController::class, 'getTeamDetail'])->name('team.detail');
+
+// teams
+Route::get('my-teams', [App\Http\Controllers\TeamController::class, 'getTeams'])->name('teams');
+Route::get('my-teams/team-details/{id}', [App\Http\Controllers\TeamController::class, 'getTeamDetail'])->name('team.detail');
 // Route::get('weekly-challenge', [App\Http\Controllers\WeeklyChallengesController::class, 'getChallengeQuestions'])->name('weekly.challenge');
 Route::get('/weekly-challenge', [App\Http\Controllers\WeeklyChallengesController::class, 'renderChallenge'])->name('weekly.challenge');
 Route::post('/weekly-challenge/post', [App\Http\Controllers\WeeklyChallengesController::class, 'postScore']);

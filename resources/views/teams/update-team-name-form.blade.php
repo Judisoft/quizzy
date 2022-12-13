@@ -28,7 +28,7 @@
 
             <x-jet-input id="name"
                         type="text"
-                        class="mt-1 block w-full"
+                        class="uk-input"
                         wire:model.defer="state.name"
                         :disabled="! Gate::check('update', $team)" />
 

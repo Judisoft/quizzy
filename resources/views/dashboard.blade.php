@@ -12,9 +12,26 @@
                             </div>
                             <div class="d-widget-content">
                                 <span class="realtime-ico pulse"></span>
-                                <h6><a href="{{route('quizzes')}}">Take quiz</a></h6>
-                                <h5>20</h5>
+                                <h6><a href="#modal-center" uk-toggle>Take quiz</a></h6>
+                                <h5 class="opacity-3">{{ $quizzes->count() }} Qz</h5>
                                 <i class="icofont-light-bulb"></i>
+                            </div>
+                            <div id="modal-center" class="uk-flex-top" uk-modal>
+                                <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+
+                                    <button class="uk-modal-close-default" type="button" uk-close></button>
+                                    <div class="uk-flex uk-flex-column mr-auto">
+                                        <h4 class="main-title">Choose a quiz mode</h4>
+                                        <p>There are two ways in which you can take quizzes - <em>Revision/Practice Mode</em> and the <em>Timed Mode</em>
+                                            In the Revision mode, you are required to provide answers to questions and verify if your answer is right or wrong. <br>
+                                            However, in the timed-quiz mode, a quiz is automatically generated and you're expected too complete the entire quiz in a single session.
+                                            At the end of the quiz, your score will be rendered and the correction provided.
+                                        </p>
+                                        <div class="p-2"><a href="{{route('subjects')}}"><button href="" class="button primary btn-block"><i class="icofont-file-alt"></i> Revision mode</button></a></div>
+                                        <div class="p-2"><a href="{{route('quizzes')}}"><button class="button primary btn-block"><i class="icofont-clock-time"></i> Timed-quiz mode</button></a></div>
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -26,7 +43,7 @@
                             <div class="d-widget-content">
                                 <span class="realtime-ico pulse"></span>
                                 <h6><a href="{{route('show.questions')}}">Create a quiz</a></h6>
-                                <h5>50</h5>
+                                <h5 class="opacity-3">{{ $questions->count() }} Qs</h5>
                                 <i class="icofont-check-circled"></i>
                             </div>
                         </div>
@@ -39,7 +56,7 @@
                             <div class="d-widget-content">
                                 <span class="realtime-ico pulse"></span>
                                 <h6><a href="{{ route('weekly.challenge') }}">Challenge your peers</a></h6>
-                                <h5>5.3K</h5>
+                                <h5 class="opacity-3">{{ $participants->count() }} Ps</h5>
                                 <i class="icofont-badge"></i>
                             </div>
                         </div>

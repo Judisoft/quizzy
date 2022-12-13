@@ -11,9 +11,11 @@ use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\UserQuestion;
+use App\Models\Question;
 use App\Models\Answer;
 use App\Models\Score;
 use App\Models\Payment;
+use App\Models\Team;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -80,5 +82,15 @@ class User extends Authenticatable implements MustVerifyEmail
     public function payments()
     {
         $this->hasMany(Payment::class);
+    }
+
+    public function questions()
+    {
+        return $this->hasMany(Question::class);
+    }
+
+    public function teams()
+    {
+        return $this->hasMany(Team::class);
     }
 }

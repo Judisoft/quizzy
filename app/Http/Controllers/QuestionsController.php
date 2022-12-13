@@ -13,7 +13,7 @@ class QuestionsController extends Controller
     {
         $subjects = Subject::all();
         
-        return view('questions', compact('subjects'));
+        return view('subjects', compact('subjects'));
     }
 
     public function subjectQuestions($subject_id, Request $request) 
@@ -24,18 +24,26 @@ class QuestionsController extends Controller
         
         // $topics = Question::select('topic')->where('subject', $subject)->distinct()->paginate(25);
          
-        return view('questions-by-subject', compact('questions', 'subject_id', 'user_quizzes', 'subject'));
+        return view('quiz-questions', compact('questions', 'subject_id', 'user_quizzes', 'subject'));
     }
 
     public function getQuestion($subject, $id) 
     {
         $question = Question::find($id);
-        $next_qid = Question::where('id', '>', $id)->where('subject', $subject)->min('id');
-        $previous_qid = Question::where('id', '<', $id)->where('subject', $subject)->max('id');
-        $next_question = Question::find($next_qid);
-        $previous_question = Question::find($previous_qid);
+        $next_qid = Question::where('id', '>', $id)->where('subject_id', $subject)->min('id');
+        $previous_qid = Question::where('id', '<', $id)->where('subject_id', $subject)->max('id');
+        // check for the existence of next id
 
-        return view('question-item', compact('question', 'subject', 'id', 'next_qid', 'next_question', 'previous_question'));
+        if ($next_qid > $id)
+        {
+            $next_question = Question::find($next_qid);
+            $previous_question = Question::find($previous_qid);
+
+            return view('question-item', compact('question', 'subject', 'id', 'next_qid', 'next_question', 'previous_question'));
+        }
+        else {
+            return redirect()->back();
+        }
         
     }
 

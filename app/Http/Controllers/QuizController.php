@@ -23,12 +23,13 @@ class QuizController extends Controller
         return view('quizzes', compact('subjects'));
     }
 
-    public function quizGenerator($id, $subject_title, $level)
+    public function quizGenerator($id, $subject_title, $level, Request $request)
     {
         $subjects = Subject::all();
         $levels = Level::all();
         $questions = Question::where('level_id', auth()->user()->level)
                                 ->where('subject_id', $id)
+                                // ->where('topic_id', $request->quiz_topic)
                                 ->inRandomOrder()
                                 ->limit(20)
                                 ->get();
