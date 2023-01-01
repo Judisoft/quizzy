@@ -13,18 +13,18 @@
                                 </div>
                             </div>
                             <table class="table table-default all-events table-striped table-responsive-lg">
-                                @if($user->count() > 0)
+                                @if($user->teams->count() > 0)
                                     <thead>
                                         <tr>
                                             <th>Team Name</th>
-                                            <th>Members(0)</th>
+                                            <th>Participants</th>
                                             <th>Date Created</th>
                                             <th>Edit</th>
                                         </tr>
                                     </thead>
                                 @endif
                                 <tbody>
-                                    @forelse($teams as $team)
+                                    @forelse($user->teams as $team)
                                         <tr>
                                         <td><a href="{{ url('/my-teams/team-details/'.$team->id) }}">{{ $team->name }}</a></td>
                                             <td>
@@ -44,7 +44,6 @@
                                     @empty
                                         <div class="text-center">
                                             <p class="opacity-3">No team</p>
-                                            <button class="button dark"><i class="icofont-users"></i> Create a team</button>
                                         </div>
                                     @endforelse
                                 </tbody>

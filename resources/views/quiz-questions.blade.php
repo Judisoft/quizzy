@@ -1,4 +1,4 @@
-@include('layouts\dashboard\main')
+@include('layouts.dashboard.main')
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-12">
@@ -155,7 +155,6 @@
             // render quizzes
             let quizzes = response.data.quizzes;
             userQuizzes.innerHTML = `<div class="uk-alert-light pt-3" uk-alert>
-                                        <p class="text-success"><i class="icofont-check-circled"></i> ${quizzes[quizzes.length - 1].title} created successfully </p><br>
                                         <button onclick="renderQuestionList()" class="button dark small"> Add questions to ${quizzes[quizzes.length - 1].title} quiz</button>
                                     </div>`
 

@@ -8,13 +8,13 @@
     <meta name="keywords" content="" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
 	<title>Dashboard</title>
-    <link rel="icon" href="{{ asset('images/fav.html') }}" type="image/png" sizes="16x16">
-    <link rel="stylesheet" href="{{asset('css/main.min.css')}}">
-    <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    <link rel="icon" href="{{ asset('backend/images/fav.html') }}" type="image/png" sizes="16x16">
+    <link rel="stylesheet" href="{{asset('backend/css/main.min.css')}}">
+    <link rel="stylesheet" href="{{asset('backend/css/style.css')}}">
     {{-- <link rel="stylesheet" href="{{asset('css/uikit.min.css')}}"> --}}
-    <link rel="stylesheet" href="{{asset('css/color.css')}}">
-    <link rel="stylesheet" href="{{asset('css/responsive.css')}}">
-	<link href="{{ asset('plugins/apex/apexcharts.css') }}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{{asset('backend/css/color.css')}}">
+    <link rel="stylesheet" href="{{asset('backend/css/responsive.css')}}">
+	<link href="{{ asset('backend/plugins/apex/apexcharts.css') }}" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- ck editor -->
     <script src="https://cdn.ckeditor.com/4.17.1/standard-all/ckeditor.js"></script>
@@ -22,8 +22,8 @@
     @livewireStyles
 
     <!-- Scripts -->
-    <script src="{{ mix('js/app.js') }}" defer></script>
-    <script src="{{ asset('js/quiz.js') }}"></script>
+    <script src="{{ asset('backend/js/app.js') }}" defer></script>
+    <script src="{{ asset('backend/js/quiz.js') }}"></script>
 </head>
 <body>
 {{-- <div class="page-loader" id="page-loader">
@@ -37,13 +37,13 @@
     </div>
 @livewireScripts
 @yield('page_scripts')
-<script src="{{asset('js/main.min.js')}}"></script>
-<script src="{{asset('js/uikit.min.js')}}"></script>
-<script src="{{asset('js/sparkline.js')}}"></script>
-<script src="{{asset('js/chart.js')}}"></script>
-<script src="{{asset('js/vivus.min.js')}}"></script>
-<script src="{{asset('js/script.js')}}"></script>
-<script src="{{ asset('plugins/apex/apexcharts.min.js')}}"></script>
-<script src="{{asset('js/graphs-scripts.js')}}"></script>
+<script src="{{asset('backend/js/main.min.js')}}"></script>
+<script src="{{asset('backend/js/uikit.min.js')}}"></script>
+<script src="{{asset('backend/js/sparkline.js')}}"></script>
+<script src="{{asset('backend/js/chart.js')}}"></script>
+<script src="{{asset('backend/js/vivus.min.js')}}"></script>
+<script src="{{asset('backend/js/script.js')}}"></script>
+<script src="{{ asset('backend/plugins/apex/apexcharts.min.js')}}"></script>
+<script src="{{asset('backend/js/graphs-scripts.js')}}"></script>
 </body>
 </html>

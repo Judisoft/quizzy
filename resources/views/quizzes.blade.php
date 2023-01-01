@@ -4,7 +4,7 @@
         <div class="col-lg-12">
             <div class="panel-content">
                 <div class="d-widget-title p-2">
-                    <h3 class="main-tile"><span>Select Subject</span> or <span>enter quiz ID </span> to take a take quiz</h3>
+                    <h3 class="main-tile"><span>Select Subject</span> or <span>enter quiz ID </span> to take a quiz</h3>
                     <div class="uk-margin">
                         <input class="uk-input uk-form-width-medium" type="text" placeholder="Enter Quiz ID">
                         <button class="button primary">Submit query</button>

@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="panel-content">
-                <h4 class="main-title">Reviews</h4>
+                <h4 class="main-title">Question Reviews</h4>
                 <div class="row merged20 mb-4">
                     <div class="col-lg-8">
                         <div class="d-widget">

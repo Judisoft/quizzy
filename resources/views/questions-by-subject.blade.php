@@ -40,7 +40,8 @@
                                 <li>{{ $question->D }}</li>
                             </ol>
                             <div class="uk-flex uk-flex-right">
-                                <div onclick="like()"><a class="text-primary"><i class="icofont-heart px-2 h4"></i></a></div>
+                                <div onclick="like()"><a class="text-primary"><i class="icofont-thumbs-up px-2 h4"></i></a></div>
+                                <div onclick="like()"><a class="text-primary"><i class="icofont-thumbs-down px-2 h4"></i></a></div>
                                 <div onclick="bookmark()"><a class="text-primary"><i class="icofont-book-mark px-2 h4"></i></a></div>
                                 <div onclick="share()"><a class="text-primary"><i class="icofont-share-alt px-2 h4"></i></a></div>
                             </div>

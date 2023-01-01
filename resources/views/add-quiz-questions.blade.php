@@ -6,7 +6,7 @@
                 <div class="d-widget-title bg-light p-2">
                     <h2 class="main-title">Add questions to <span class="text-danger">"{{ $user_quiz->title }}"</span></h2>
                     <h5><i class="icofont-paper"></i> {{ $subject->title }}</h5>
-                    <h5 class="p-2"><a href="{{ route('user.quiz', $user_quiz->id) }}"><button class="button light small"><i class="icofont-clip-board"></i> view quiz items <span id="question">0</span></button></a></h5>
+                    <h5 class="p-2"><a href="{{ route('user.quiz', $user_quiz->id) }}"><button class="button softprimary small"><i class="icofont-clip-board"></i>quiz items: <span id="question">0</span></button></a></h5>
                     <select class="browser-default custom-select">
                         <option value="3"> topics</option>
                     </select>

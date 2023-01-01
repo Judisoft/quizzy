@@ -7,7 +7,7 @@
                 <div class="row merged20">
                     @foreach($subjects as $subject)
                         <div class="col-lg-4 col-md-4 col-sm-4 mb-4">
-                            <div class="d-widget d-widget-action soft-blue">
+                            <div class="d-widget d-widget-action">
                                 <div class="d-widget-title">
                                     <h5>{{$subject->title}}</h5>
                                 </div>

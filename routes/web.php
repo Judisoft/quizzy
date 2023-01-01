@@ -20,6 +20,8 @@ Route::get('/', function () {
     return view('index');
 })->name('home');
 
+Route::post('/', [App\Http\Controllers\NewsletterController::class, 'newsletterPost'])->name('newsletter');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -33,9 +35,12 @@ Route::get('admin/dashboard', [App\Http\Controllers\Admin\AdminController::class
 Route::get('admin/dashboard/{id}/upgrade-plan', [App\Http\Controllers\Admin\AdminController::class, 'upgradeUserPlan'])->name('upgrade.user_status');
 
 //User Routes
+
+// quizzes
 Route::get('quizzes', [App\Http\Controllers\QuizController::class, 'displayQuizzes'])->name('quizzes'); //->middleware('verify.payment'); //verify payment
 Route::get('/quiz/{id}/{title}/{level}', [App\Http\Controllers\QuizController::class, 'quizGenerator'])->name('display.quiz');
 Route::get('user_quiz/{quiz_id}/quiz-questions', [App\Http\Controllers\QuizController::class, 'createUserQuiz'])->name('user.quiz');
+Route::get('quizzes/user-quizzes', [App\Http\Controllers\QuizController::class, 'getAllQuizzess'])->name('all.quizzes');
 // quiz practice mode 
 Route::get('/subjects', [App\Http\Controllers\QuizPracticeModeController::class, 'getSubjects'])->name('subjects');
 Route::get('/subjects/{subject_id}', [App\Http\Controllers\QuizPracticeModeController::class, 'getSubjectQuestions'])->name('questions');

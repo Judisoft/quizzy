@@ -16,6 +16,7 @@ use App\Models\Answer;
 use App\Models\Score;
 use App\Models\Payment;
 use App\Models\Team;
+use App\Models\Quiz;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -93,4 +94,10 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Team::class);
     }
+
+    public function quizzes()
+    {
+        return $this->hasMany(Quiz::class);
+    }
+
 }

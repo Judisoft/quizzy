@@ -11,17 +11,15 @@ class TeamController extends Controller
 {
     public function getTeams()
     {
-        $user = User::find(Auth::user()->id);
-        $teams = $user->teams()->get();
+        $user = User::find(Auth::user()->id)->first();
         
-        return view('my-teams', compact('user', 'teams'));
+        return view('my-teams', compact('user'));
     }
 
     public function getTeamDetail($id)
     {
         $team = Team::find($id);
-        $team_members = $team->users()->get();
-
-        return view('team_detail', compact('team', 'team_members'));
+       
+        return view('team_detail', compact('team'));
     }
 }

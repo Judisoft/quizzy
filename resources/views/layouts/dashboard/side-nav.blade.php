@@ -6,6 +6,12 @@
             </a>
         </li>
         <li class="">
+            <a class="" href="{{route('all.quizzes')}}" title="">
+                <i class="">
+                <svg id="ab2" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-square"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></i>Quizzes
+            </a>
+        </li>
+        <li class="">
             <a class="" href="{{route('analytics')}}" title="">
                 <i class=""><svg id="ab7" class="feather feather-zap" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></i>Your content and stats
             </a>
@@ -30,13 +36,6 @@
                 </i>Blog
             </a>
         </li>
-        <li class="">
-            <a class="" href="{{route('messages.inbox')}}" title="">
-                <i class="">
-                <svg id="ab2" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-square"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></i>Messages
-            </a>
-        </li>
-        
         <li class="">
             <a class="" href="{{route('bookmarks')}}" title="">
                 <i class="">

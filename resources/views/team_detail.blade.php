@@ -24,22 +24,34 @@
                                 </div>
                             </div>
                             <table class="table table-default all-events table-striped table-responsive-lg">
-                                @if($team_members->count() > 0)
+                                @if($team->users->count() > 0)
                                     <thead>
                                         <tr>
                                             <th>Team Members</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Role</th>
+                                            <th>Edit</th>
                                         </tr>
                                     </thead>
                                 @endif
                                 <tbody>
-                                    @forelse($team_members as $member)
+                                    @forelse($team->users as $user)
                                         <tr>
-                                            <td><h5>{{ $member->name }}</h5></td>
+                                            <td><h6 class="main-title"><img src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}">{{ $user->name }}</h6></td>
+                                            <td><h5>{{ $user->role }}</h5></td>
+                                            <td>
+                                                <div class="button soft-danger"><i class="icofont-trash"></i></div>
+                                                <div class="button soft-primary"><i class="icofont-pen-alt-1"></i></div>
+                                            </td>
                                         </tr>
                                     @empty
                                         <div class="text-center">
                                             <p class="opacity-3">No team Member</p>
-                                            <button class="button dark"><i class="icofont-ui-social-link"></i> Invite team member</button>
+                                            <button class="button primary"><i class="icofont-ui-social-link"></i> Invite team member</button>
                                         </div>
                                     @endforelse
                                 </tbody>

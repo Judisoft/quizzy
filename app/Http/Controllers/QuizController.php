@@ -142,4 +142,18 @@ class QuizController extends Controller
         $subject = Subject::find($subject_id);
         return view('add-quiz-questions', compact('questions', 'user_quiz', 'subject'));
     }
+
+    public function getAllQuizzess(Request $request)
+    {
+        $search = $request->input('search');
+
+        if($search)
+        {
+            $quizzes = Quiz::query()->where('title', 'LIKE', "%{$search}%")->simplePaginate(21);
+            // $quizzes = Quiz::query()->where('title', '=', $search)->simplePaginate(21);
+        } else {
+            $quizzes = Quiz::simplePaginate(21);
+        }
+        return view('all-quizzes', compact('quizzes'));
+    }
 }

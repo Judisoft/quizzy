@@ -1,4 +1,4 @@
-@include('layouts\dashboard\main')
+@include('layouts.dashboard.main')
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-12">
