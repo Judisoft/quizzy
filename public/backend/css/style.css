@@ -3728,7 +3728,7 @@ nav.sidebar {
 }
 .menu-slide > li > a {
 	display: inline-block;
-	font-size: 13px;
+	font-size: 14px;
 	font-weight: 500;
 	padding: 10px 15px;
 	position: relative;
@@ -5302,7 +5302,7 @@ table.all-events tbody td .button {
 }
 .more-opt {
     position: absolute;
-    right: 10px;
+    right: 20px;
     top: 10px;
     z-index: 9;
 }
@@ -5334,9 +5334,9 @@ table.all-events tbody td .button {
     width: 100%;
 }
 .more-opt > span {
-    background: rgba(0, 0, 0, 0.5) none repeat scroll 0 0;
+    /* background: rgba(0, 0, 0, 0.5) none repeat scroll 0 0; */
     border-radius: 100%;
-    color: #fff;
+    color: #000;
     display: inline-block;
     font-size: 16px;
     height: 25px;

@@ -23,7 +23,7 @@ class QuizPracticeModeController extends Controller
         // $topics = Question::select('topic_id')->where('subject_id', $subject_id)->distinct()->paginate(25);
         $topics = $subject->topics;
 
-        return view('questions-by-subject', compact('questions', 'topics', 'subject'));
+        return view('questions-by-subject', compact('questions', 'subject', 'topics'));
     }
 
     public function nextQuestion() 

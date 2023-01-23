@@ -53,39 +53,57 @@
             <div class="panel-content">
                 <div class="row merged20 mb-4">
                     <div class="col-lg-8 col-md-6 col-sm-12">
-                        <div class="uk-margin bg-light p-3">
-                            <h4 class="main-title">{{ $subject_title }} Quiz <span id="topicName"></span></h4>
-                            <select class="uk-select" name="topic" id="topic">
-                                <option value="">-- Select topic --</option>
-                                @foreach ($topics as $topic)
-                                    <option value="{{ $topic->id }}">{{ $topic->topic }}</option>
-                                @endforeach
-                            </select>
+                        <div class="uk-card uk-card-body bg-dark rounded">
+                            <h2 class="main-title text-capitalize text-light">{{ $quiz->title }}</h2>
+                            <p class="uk-text-meta uk-margin-remove-top">Created by {{ $quiz->user->name }}, {{ $quiz->created_at->diffForHumans() }}</p>
                         </div>
+                       <div class="uk-flex uk-flex-around mt-3">
+                            <div class="uk-card uk-card-body border-right">
+                                <img class="uk-border-circle text-center" width="70" height="70" src="{{ asset('backend/images/resources/stopwatch.png')}}">
+                                <p class="text-center pt-3">Time:
+                                    @if($quiz_time < 60){{ $quiz_time }} {{ Str::plural('second', $quiz_time) }} 
+                                    @else {{ ceil($quiz_time / 60) }} {{ Str::plural('minute', $quiz_time / 60) }} 
+                                    @endif
+                                </p>
+                            </div>
+                            <div class="uk-card uk-card-body">
+                                <img class="uk-border-circle text-center" width="70" height="70" src="{{ asset('backend/images/resources/points.png')}}">
+                                <p class="text-center pt-3">
+                                    {{ $quiz_points }} {{ Str::plural('point', $quiz_points) }}
+                                </p>
+                            </div>
+                            <div class="uk-card uk-card-body border-left">
+                                <img class="uk-border-circle text-center" width="70" height="70" src="{{ asset('backend/images/resources/question-mark.png')}}">
+                                <p class="text-center pt-3">
+                                    {{ $quiz->questions->count() }} {{ Str::plural('question',$quiz->questions->count()) }}
+                                </p>
+                            </div>
+                       </div>
                         <div class="uk-flex uk-flex-between" id="timer">
                             <h5 class="text-danger" id="counter"></h5>
                             <div id="questionProgress"></div>
                         </div>
                         @if($questions->count() > 0)
-                            <div class="d-widget">
-                                <p class="font-normal text-md" id="instruction">
+                            <div class="d-widget mt-3">
+                                <p class="text-center" id="instruction">
                                     @if($questions->count() > 0)
-                                        This quiz contains {{ $questions->count() }} {{ $subject_title }} questions. You are expected to complete the entire quiz in {{ $questions->count() }} minutes.
-                                        <br>The quiz will automatically end after {{ $questions->count() }} minutes.<br>
-                                        Good Luck!
+                                        This quiz contains {{ $questions->count() }}  questions. 
+                                        You are expected to complete the entire quiz in 
+                                        @if($quiz_time < 60){{ $quiz_time }} {{ Str::plural('second', $quiz_time) }} 
+                                        @else {{ ceil($quiz_time / 60) }} {{ Str::plural('minute', $quiz_time / 60) }} 
+                                        @endif
+                                        <br>The quiz will automatically end after
+                                        @if($quiz_time < 60){{ $quiz_time }} {{ Str::plural('second', $quiz_time) }} 
+                                        @else {{ ceil($quiz_time / 60) }} {{ Str::plural('minute', $quiz_time / 60) }} 
+                                        @endif
                                     @else
-                                        No question available for {{ $subject_title }}
+                                        No question available for {{ $quiz->title }}
                                     @endif
                                 </p>
                                 <div class="uk-flex uk-flex-center">
-                                    <button id="start" class="button danger">
+                                    <button id="start" class="button btn-lg danger">
                                         Start Quiz
                                     </button>
-                                    {{-- <select class="browser-default custom-select" name="search" id="level">
-                                        @foreach ($questions as $question)
-                                            <option value="{{ $question->level->class_id}}" selected>{{ $question->level->name}}</option>
-                                        @endforeach
-                                    </select> --}}
                                 </div>
                                 <div class="d-widget-content">
                                     <div class="tabs tab-content">
@@ -128,15 +146,15 @@
                         @endif
                     </div>
                     <div class="col-lg-4 col-md-6 col-sm-12">
-                        <div class="d-widget blue-bg pd-0">
+                        <div class="d-widget bg-light pd-0">
                             <div class="d-widget-content">
                                 <div class="w-numeric-value">
                                     <div class="d-content">
-                                        <span class="w-numeric-title">Subjects</span>
+                                        <h2 class="main-title">Subjects</h2>
                                         <ul class="uk-list uk-list-divider">
                                             @foreach ($subjects as $subject)
                                             <li>
-                                                <a  class="text-light" href="{{ route('display.quiz', ['id' => $subject->id, 'title' =>  $subject->title, 'level' => Auth::user()->level])}}">
+                                                <a href="{{ route('questions', $subject->id)}}">
                                                     {{ $subject->title }}
                                                 </a>
                                             </li>
@@ -173,21 +191,10 @@
     let topic = document.getElementById("topic")
     let topicName = document.getElementById("topicName")
     let questionProgress = document.getElementById("questionProgress")
+    const timer = document.getElementById("timer")
 
     // get questions from db
 
-    topic.addEventListener("change", () => {
-        const url = "{{ route('display.quiz', ['id' => $subject->id, 'title' =>  $subject->title, 'level' => Auth::user()->level]) }}"
-        axios.post(url, {
-            quiz_topic: topic.value
-        })
-        .then(function (response) {
-            console.log(response);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-    })
 
     // convert questions to json format
 
@@ -198,7 +205,7 @@
     const lastQuestion = questions.length - 1;
     let runningQuestion = 0;
     let count = 0;
-    const questionTime = 45; // 45s
+    let questionTime = questions[runningQuestion].duration;
     const gaugeWidth = 150; // 150px
     const gaugeUnit = gaugeWidth / questionTime;
     let TIMER;
@@ -215,7 +222,7 @@
         choiceC.innerHTML = q.C;
         choiceD.innerHTML = q.D;
 
-        questionProgress.innerHTML = `<h5">${runningQuestion + 1} / ${questions.length}</h5>`
+        questionProgress.innerHTML = `<h5 class="uk-text-lead text-light bg-dark p-3 rounded" style="font-weight:700">${runningQuestion + 1} of  ${questions.length}</h5>`
 
     }
 
@@ -264,7 +271,8 @@
 
     function renderCounter(){
         if(count <= questionTime){
-            counter.innerHTML = `<span class='small'> <i class="icofont-clock-time"></i>  ${count} sec</span>`;
+            timer.style.backgroundColor = " #212529"
+            counter.innerHTML = `<h5 class="uk-text-lead text-light bg-dark p-3 rounded" style="font-weight:700">${count} seconds</h5>`;
             // timeGauge.style.width = count * gaugeUnit + "px";
             count++
         }else{
@@ -272,6 +280,7 @@
           
             if(runningQuestion < lastQuestion){
                 runningQuestion++;
+                questionTime = questions[runningQuestion].duration;
                 renderQuestion();
             }else{
                 // nextQuestion.innerHTML = 'submit';
@@ -333,15 +342,70 @@
         //         "/img/1.png";
         
         // scoreDiv.innerHTML = "<img style='text-align:center' src="+ img +">";
+        
         scoreDiv.innerHTML = `
-                            <h2 class='main-title bg-light border-3 py-3 pb-2 mt-3 text-center'>
+                            <h1 class='main-title text-secondary border-3 py-3 pb-2 mt-3 text-center'>
                                 Score: ${scorePerCent} %
-                            </h2><br>
+                            </h1><br>
                             <div class='uk-flex uk-flex-center'>
-                                <a href="{{ url()->current() }}"><button class="button success small">Generate new quiz</button></a>
+                                <div><a href="{{ url()->current() }}"><button class="button danger">Retake Quiz</button></a></div>
+                                <div class="px-3"><a href="#modal-full" uk-toggle><button class="button success">view correction</button></a></div>
                             </div>
                             `;
-        counter.innerHTML = `<h5 class="text-danger">Quiz ended</h5>`
+        counter.innerHTML = `<h5 class="uk-text-lead uk-text-center text-light bg-dark p-3 rounded" style="font-weight:700">Quiz Ended</h5>`
+    }
+
+</script>
+<div id="modal-full" class="uk-modal-full" uk-modal>
+    <div class="uk-modal-dialog">
+        <button class="uk-modal-close-full uk-close-large" type="button" uk-close></button>
+        <div class="uk-grid-collapse uk-child-width-1@s uk-flex-middle" uk-grid>
+            <div class="uk-background-cover uk-padding-large" uk-height-viewport>
+                <div id="solution">
+                    <h1 class="text-uppercase text-center text-dark p-5" style="font-weight:800">{{ $quiz->title }}</h1>
+                    <table class="table table-striped p-5">
+                        <thead class="bg-primary text-light">
+                            <tr>
+                                <th>SN</th>
+                                <th>Question</th>
+                                <th>A</th>
+                                <th>B</th>
+                                <th>C</th>
+                                <th>D</th>
+                                <th>Answer</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($questions as $key=>$question)
+                                <tr>
+                                    <td>{{ $key + 1}}</td>
+                                    <td>{{$question->content}}</td>
+                                    <td>{{ $question->A }}</td>
+                                    <td>{{ $question-> B}}</td>
+                                    <td>{{ $question->C }}</td>
+                                    <td>{{ $question->D }}</td>
+                                    <td>{{ $question->answer }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                <div class="uk-modal-footer uk-text-right">
+                    <button class="button uk-button-primary" type="button" onclick="printAnswers();"><i class="icofont-printer px-2"></i> print</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function printAnswers()
+    {
+        const solution = document.getElementById("solution")
+        let printWin = window.open()
+
+        printWin.document.write(solution.innerHTML)
+        printWin.print()
     }
 
 </script>

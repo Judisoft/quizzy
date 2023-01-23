@@ -23,18 +23,21 @@ class QuizController extends Controller
         return view('quizzes', compact('subjects'));
     }
 
-    public function quizGenerator($id, $subject_title, $level, Request $request)
+    public function quizGenerator(Quiz $quiz, Request $request)
     {
-        $subjects = Subject::all();
-        $levels = Level::all();
-        $questions = Question::where('level_id', auth()->user()->level)
-                                ->where('subject_id', $id)
-                                // ->where('topic_id', $request->quiz_topic)
-                                ->inRandomOrder()
-                                ->limit(20)
-                                ->get();
-        $topics = Topic::where('subject_id', $id)->get();
-        return view('quiz-detail', compact('subject_title', 'subjects', 'levels', 'questions', 'topics'));
+        $subjects = Subject::all();        
+        $questions = $quiz->questions;
+
+        $quiz_time = 0;
+        $quiz_points = 0;
+
+        foreach($questions as $question)
+        {
+            $quiz_time += $question->duration;
+            $quiz_points += $question->points;
+        }
+
+        return view('quiz-detail', compact('questions', 'subjects', 'quiz', 'quiz_time', 'quiz_points'));
         
 
     }
@@ -146,6 +149,9 @@ class QuizController extends Controller
     public function getAllQuizzess(Request $request)
     {
         $search = $request->input('search');
+        // $recommended_quizzes = Quiz::where('user_id', )
+
+        // $quiz_quests = Quiz::find()
 
         if($search)
         {

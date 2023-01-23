@@ -4,12 +4,13 @@
     <div class="col-lg-9 col-md-9 col-sm-9">
         <div class="panel-content ml-3">
             <div class="uk-margin">
-                <h3 class="main-title">Select a topic to sort questions</h3>
+                <h1 class="main-title">{{ $subject->title }}</h1>
+                <p class="p-2 h-5">Select a topic to sort questions</p>
                 <div class="uk-form-controls">
                     <select class="uk-select" id="topic">
                         <option value="">-- select topic --</option>
-                        @foreach ($topics as $topic_title)
-                            <option value="{{ $topic_title->topic }}">{{ $topic_title->topic }}</option>
+                        @foreach ($topics as $sub_topic)
+                            <option value="{{ $sub_topic->topic }}">{{ $sub_topic->topic }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -25,7 +26,11 @@
                                 </div>
                                 <div class="uk-width-expand">
                                     <a href="#"><h5 class="uk-margin-remove-bottom">{{$question->user->name }} @if($question->user->is_premium == 1)<i class="icofont-check-circled text-primary"></i>@endif</h5></a>
-                                    <p class="uk-text-meta uk-margin-remove-top"><time datetime="2016-04-01T19:00">{{ $question->created_at }}</time></p>
+                                    <p class="uk-text-meta uk-margin-remove-top">{{ $question->created_at->diffForHumans() }}</p>
+                                </div>
+                                <div class="uk-flex uk-flex-right">
+                                    <div class="px-2"><a class="button small light"><i class="icofont-clock-time px-2"></i>{{ $question->duration }} {{ Str::plural('second', $question->duration) }}</a></div>
+                                    <div class="px-2"><a class="button small light"><i class="icofont-check-circle px-2"></i>{{ $question->points }} {{ Str::plural('point', $question->points) }}</a></div>
                                 </div>
                             </div>
                         </div>
@@ -39,12 +44,6 @@
                                 <li>{{ $question->C }}</li>
                                 <li>{{ $question->D }}</li>
                             </ol>
-                            <div class="uk-flex uk-flex-right">
-                                <div onclick="like()"><a class="text-primary"><i class="icofont-thumbs-up px-2 h4"></i></a></div>
-                                <div onclick="like()"><a class="text-primary"><i class="icofont-thumbs-down px-2 h4"></i></a></div>
-                                <div onclick="bookmark()"><a class="text-primary"><i class="icofont-book-mark px-2 h4"></i></a></div>
-                                <div onclick="share()"><a class="text-primary"><i class="icofont-share-alt px-2 h4"></i></a></div>
-                            </div>
                         </div>
                     </div>
                 </div>

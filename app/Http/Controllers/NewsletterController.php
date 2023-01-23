@@ -19,7 +19,12 @@ class NewsletterController extends Controller
 
         $newsletter->save();
 
-        $request->session()->flash('success', 'Thank you for subscribing to our newsletter.');
+        if($newsletter->id)
+        {
+            $request->session()->flash('success', 'Thank you for subscribing to our newsletter.');
+        } else {
+            $request->session()->flash('error', 'Oups! Something went wrong! Try again');
+        }
 
         return back();
     }

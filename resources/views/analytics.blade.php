@@ -47,25 +47,26 @@
                 </div>
                 <div class="row merged20 mb-4">
                     <div class="col-lg-8 col-md-6 col-sm-12">
-                        <div class="d-widget">
-                            <div class="d-widget-title">
-                                <h5 class="">Your content</h5>
-                                <select class="browser-default custom-select">
-                                    <option value="3">last day</option>
-                                    <option value="2">week</option>
-                                    <option selected>Monthly</option>
-                                    <option value="1">Yearly</option>
-                                </select>
-                            </div>
-                            
-                            <div class="d-widget-content">
-                                <div class="tabs tab-content">
-                                    <div id="content_1" class="tabcontent"> 
-                                        <h4 class="main-title">Nothing found for the selected filters.</h4>
+                       @foreach($user_quizzes as $user_quiz)
+                            <a href="#">
+                                <div class="d-widget mt-4">
+                                    <div class="d-widget-title">
+                                        <h5 class="text-capitalize">{{ $user_quiz->title }} </h5>
+                                        <div class="small text-right">{{ $user_quiz->subject->title }}</div>
+                                    </div>
+                                    <div class="d-widget-content">
+                                        <div class="tabs tab-content">
+                                            <div class="tabcontent"> 
+                                                <h4>{{ $user_quiz->id }}</h4>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+                            </a>
+                       @endforeach
+                       @if(count($user_quizzes) > 0)
+                            <div class="p-5">{{ $user_quizzes->links() }}</div>
+                        @endif
                     </div>
                     <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="d-widget blue-bg pd-0">

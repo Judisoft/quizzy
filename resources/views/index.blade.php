@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="" />
     <meta name="keywords" content="" />
-	<title>Quizzy | StudentPortal CM</title>
+	<title>Quizzy Home</title>
     <link rel="icon" href="images/fav.png" type="image/png" sizes="16x16"> 
     
     <link rel="stylesheet" href="css/main.min.css">
@@ -76,11 +76,14 @@
 				</form>
 			</div>
 			<ul>
+				<li><a href="{{ route('plans') }}" title="">Plans</a></li>
+				<li><a href="{{ route('contact') }}" title="">contact</a></li>
+				<li><a href="{{ route('help') }}" title="">help center</a></li>
 				@if(Auth::guest())
-				<li><a class="join-butn" href="{{route('login')}}" title=""><i class="icofont-lock"></i> Login</a></li>
+					<li><a href="{{route('register')}}" title=""> Sign Up</a></li>
+					<li><a class="join-butn" href="{{route('login')}}" title=""><i class="icofont-lock"></i> Login</a></li>
 				@endif
-				<li><a href="https://help.studentportal-cm.com" title="" target="_target">help center</a></li>
-				<li><a href="#" title=""><img src="images/flags/US.png" alt=""> English</a></li>
+				<li><a href="#" title=""><img src="images/flags/US.png" alt=""> En</a></li>
 			</ul>
 		</div>
 	</header>
@@ -164,10 +167,10 @@
 					</div>
 				</div>
 				<div class="row remove-ext30 mt-5">
-					<div class="col-lg-4 col-md-4 col-sm-4" data-aos="fade-right">
+					<div class="col-lg-4 col-md-4 col-sm-4 mt-5" data-aos="fade-right">
 						<h1 style="font-weight:900;">Explore Solutions</h1>
 					</div>
-					<div class="col-lg-2 col-md-2 col-sm-2" data-aos="fade-left">
+					<div class="col-lg-2 col-md-2 col-sm-2 mt-5" data-aos="fade-left">
 						<figure><img alt="" src="images/resources/arrow2.svg"></figure>
 					</div>
 					<div class="col-lg-6 col-md-6 col-sm-6">
@@ -547,6 +550,12 @@
 		<div class="gap">
 			<div class="container">
 				<div class="row">
+					@if(Session::has('success'))
+						<p class="alert alert-info">{{ Session('success') }}</p>
+					@endif
+					@if(Session::has('error'))
+						<p class="alert alert-danger">{{ Session('error') }}</p>
+					@endif
 					<div class="col-lg-12">
 						<h1 class="text-center">Sign Up for our Newsletter Now!</h1>
 						<div class="text-center"><figure><img src="images/resources/three-lines2.svg" alt=""></figure></div>
@@ -564,9 +573,6 @@
 							</form>
 						</div>
 					</div>
-					@if(Session::has('success'))
-						<p class="alert alert-info">{{ Session('success') }}</p>
-					@endif
 				</div>
 			</div>
 		</div>

@@ -16,9 +16,12 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::get('/', function () {
-    return view('index');
-})->name('home');
+// Frontend routes
+Route::get('/', [App\Http\Controllers\FrontEndController::class, 'index'])->name('home');
+Route::get('plans', [App\Http\Controllers\FrontEndController::class, 'plans'])->name('plans');
+Route::get('help', [App\Http\Controllers\FrontEndController::class, 'help'])->name('help');
+Route::get('contact', [App\Http\Controllers\FrontEndController::class, 'contact'])->name('contact');
+Route::post('contact', [App\Http\Controllers\ContactFormController::class, 'postContactForm'])->name('post-contact');
 
 Route::post('/', [App\Http\Controllers\NewsletterController::class, 'newsletterPost'])->name('newsletter');
 
@@ -38,12 +41,15 @@ Route::get('admin/dashboard/{id}/upgrade-plan', [App\Http\Controllers\Admin\Admi
 
 // quizzes
 Route::get('quizzes', [App\Http\Controllers\QuizController::class, 'displayQuizzes'])->name('quizzes'); //->middleware('verify.payment'); //verify payment
-Route::get('/quiz/{id}/{title}/{level}', [App\Http\Controllers\QuizController::class, 'quizGenerator'])->name('display.quiz');
+Route::get('/quiz/{quiz:slug}', [App\Http\Controllers\QuizController::class, 'quizGenerator'])->name('display.quiz');
 Route::get('user_quiz/{quiz_id}/quiz-questions', [App\Http\Controllers\QuizController::class, 'createUserQuiz'])->name('user.quiz');
-Route::get('quizzes/user-quizzes', [App\Http\Controllers\QuizController::class, 'getAllQuizzess'])->name('all.quizzes');
+Route::get('/quizzes/user-quizzes', [App\Http\Controllers\QuizController::class, 'getAllQuizzess'])->name('all.quizzes');
 // quiz practice mode 
 Route::get('/subjects', [App\Http\Controllers\QuizPracticeModeController::class, 'getSubjects'])->name('subjects');
-Route::get('/subjects/{subject_id}', [App\Http\Controllers\QuizPracticeModeController::class, 'getSubjectQuestions'])->name('questions');
+Route::get('/subjects/{subject_id}/quiz-questions', [App\Http\Controllers\QuizPracticeModeController::class, 'getSubjectQuestions'])->name('questions');
+
+// library
+Route::get('/user/library', [App\Http\Controllers\LibraryController::class, 'index'])->name('library');
 
 // add questions to quiz item
 Route::get('create-quiz/add-quiz-questions/{subject_id}/{quiz_id}', [App\Http\Controllers\QuizController::class, 'addQuizQuestions'])->name('add.quiz.questions');

@@ -334,7 +334,7 @@ section {
     opacity: .5;
 }
 .help-bg {
-    background: #f8f9fb none repeat scroll 0 0;
+    background: #6C63FF none repeat scroll 0 0;
 }
 .gray-bg {
     float: left;
@@ -1141,6 +1141,24 @@ a.date {
 	background: #055f8b;
 	transform: scale(1.03);
 	color: #fff;
+}
+.btn-outline-plan {
+    border: 2px solid #6C63FF;
+    color: #6C63FF;
+    font-weight:700;
+}
+
+.btn-outline-plan:hover{
+    background-color: #6C63FF;
+    color:#fff;
+}
+.btn-plan{
+    background-color: #6C63FF;
+    color:#fff;
+    font-weight:700;
+}
+.btn-plan:hover{
+    color: #fff;
 }
 [data-ripple] > .ripple {
     border-radius: 35px !important;
@@ -6386,17 +6404,21 @@ input:checked + .switch:active::before {
     text-align: center;
     width: 100%;
 }
-.search-section > a {
-    border: 1px solid;
+.search-section > p > a {
+    color: #ffffff;
+    background-color: rgba(250, 250, 250, 0.1);
     border-radius: 20px;
     font-size: 12px;
-    left: -80px;
-    padding: 6px 10px;
-    position: absolute;
-    top: -50px;
+    padding: 8px 12px;
+    font-weight: 600;
+}
+.search-section > p > a:hover{
+    background-color: #fff;
+    color: #333333;
 }
 .search-section > h1 {
     display: inline-block;
+    color: #fff;
     margin-bottom: 26px;
     text-transform: capitalize;
     width: 100%;
@@ -6425,10 +6447,34 @@ input:checked + .switch:active::before {
 }
 .search-section > p {
     display: inline-block;
+    color: #fff;
     margin-bottom: 0;
-    margin-top: 15px;
+    margin-top: 20px;
     width: 100%;
 }
+.search-sub {
+    padding: 5px;
+    text-align: center;
+}
+.search-sub > a > h1 > p {
+    display: block;
+    line-height: 24px;
+    padding: 16px;
+    text-align: center;
+    color: #333333;
+    font-size: 16px;
+    font-weight: 400;
+    opacity: 0.5;
+}
+.search-sub > a > h1 {
+    font-size: 1.5rem;
+    text-align: center;
+    font-weight: 600;
+    color: #461B42;
+    opacity: 0.8;
+}
+
+
 /*--- blog detail page ----*/
 .blog-title {
     display: inline-block;
@@ -13728,9 +13774,28 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#007db9e8', e
 .align-center {
     text-align: center;
 }
-.shadow-index{
+.shadow-index {
     box-shadow: rgba(0, 0, 0, 0.08) 8px 8px 80px 0px;
 }
 .br-10{
     border-radius: 10px;
+}
+.text-main {
+    color:#6C63FF;
+}
+.border-plan{
+    border: 2px solid #6C63FF;
+}
+.recommended {
+    width: 80%;
+    background-color:#6C63FF;
+    padding: 5px;
+    margin-left:auto;
+    margin-right: auto;
+    color: #fff;
+    font-size: 13px;
+    margin-top: -20px;
+    text-align: center;
+    align-items: center;
+    font-weight: 700;
 }

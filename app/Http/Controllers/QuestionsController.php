@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Models\Question;
 use App\Models\Subject;
 use App\Models\Quiz;
@@ -67,7 +68,8 @@ class QuestionsController extends Controller
      {
         $validator = $request->validate([
             'title' => 'required|min:3|unique:quizzes',
-            'duration' => 'nullable'
+            'duration' => 'nullable',
+            'slug' => 'nullable'
             ],
             [
                 'title.required'=> 'Quiz title cannot be empty',
@@ -77,6 +79,7 @@ class QuestionsController extends Controller
        
         $quiz = new Quiz;
         $quiz->title = $request->title;
+        $quiz->slug = Str::slug($request->title, '-');
         $quiz->user_id = $request->user_id;
 
         $quiz->save();

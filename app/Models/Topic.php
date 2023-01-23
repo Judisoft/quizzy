@@ -14,10 +14,10 @@ class Topic extends Model
     protected $table = 'topics';
     protected $fillable = ['topic'];
 
-    public function subject()
-    {
-        return $this->belongsTo(Subject::class);
-    }
+    // public function subject()
+    // {
+    //     return $this->belongsTo(Subject::class);
+    // }
 
     public function quetions()
     {

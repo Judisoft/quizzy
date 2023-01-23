@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Subject;
 use App\Models\User;
+use App\Models\Question;
 
 class Quiz extends Model
 {
@@ -28,4 +29,10 @@ class Quiz extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function questions()
+    {
+        return $this->belongsToMany(Question::class, 'quiz_questions', 'quiz_id', 'question_id');
+    }
+
 }
