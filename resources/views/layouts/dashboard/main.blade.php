@@ -18,6 +18,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- ck editor -->
     <script src="https://cdn.ckeditor.com/4.17.1/standard-all/ckeditor.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     
     @livewireStyles
 

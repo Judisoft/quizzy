@@ -153,11 +153,12 @@
                                         <h2 class="main-title">Subjects</h2>
                                         <ul class="uk-list uk-list-divider">
                                             @foreach ($subjects as $subject)
-                                            <li>
-                                                <a href="{{ route('questions', $subject->id)}}">
-                                                    {{ $subject->title }}
-                                                </a>
-                                            </li>
+                                                <li>
+                                                    <i class="icofont-square px-2 small"></i>
+                                                    <a href="{{ route('questions', $subject->id)}}">
+                                                        {{ $subject->title }}
+                                                    </a>
+                                                </li>
                                             @endforeach
                                         </ul>
                                     </div>
@@ -301,7 +302,7 @@
         if( userAnswer == questions[runningQuestion].answer){
 
             // answer is correct
-            score++;
+            score += questions[runningQuestion].points;
             if(runningQuestion < lastQuestion){
             runningQuestion++;
             renderQuestion();
@@ -332,7 +333,7 @@
         quiz.style.display = "none";
         
         // calculate the amount of question percent answered by the user
-        const scorePerCent = Math.round(100 * score/questions.length);
+        const scorePerCent = Math.round(100 * score/{{ $quiz_points }});
         
         // choose the image based on the scorePerCent
         // let img = (scorePerCent >= 80) ? "/img/5.png" :
@@ -344,68 +345,42 @@
         // scoreDiv.innerHTML = "<img style='text-align:center' src="+ img +">";
         
         scoreDiv.innerHTML = `
-                            <h1 class='main-title text-secondary border-3 py-3 pb-2 mt-3 text-center'>
-                                Score: ${scorePerCent} %
+                            <h1 class='main-title blue-bg text-light border-3 py-3 pb-2 mt-3 text-center'>
+
+                                Score: ${score}/{{ $quiz_points }}  (${scorePerCent} %)
                             </h1><br>
                             <div class='uk-flex uk-flex-center'>
                                 <div><a href="{{ url()->current() }}"><button class="button danger">Retake Quiz</button></a></div>
-                                <div class="px-3"><a href="#modal-full" uk-toggle><button class="button success">view correction</button></a></div>
+                                <div class="px-3"><a href="{{ route('print.answers', $quiz) }}" target="_blank"><button class="button success">view correction</button></a></div>
                             </div>
                             `;
         counter.innerHTML = `<h5 class="uk-text-lead uk-text-center text-light bg-dark p-3 rounded" style="font-weight:700">Quiz Ended</h5>`
+
+        saveScore()
     }
 
-</script>
-<div id="modal-full" class="uk-modal-full" uk-modal>
-    <div class="uk-modal-dialog">
-        <button class="uk-modal-close-full uk-close-large" type="button" uk-close></button>
-        <div class="uk-grid-collapse uk-child-width-1@s uk-flex-middle" uk-grid>
-            <div class="uk-background-cover uk-padding-large" uk-height-viewport>
-                <div id="solution">
-                    <h1 class="text-uppercase text-center text-dark p-5" style="font-weight:800">{{ $quiz->title }}</h1>
-                    <table class="table table-striped p-5">
-                        <thead class="bg-primary text-light">
-                            <tr>
-                                <th>SN</th>
-                                <th>Question</th>
-                                <th>A</th>
-                                <th>B</th>
-                                <th>C</th>
-                                <th>D</th>
-                                <th>Answer</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($questions as $key=>$question)
-                                <tr>
-                                    <td>{{ $key + 1}}</td>
-                                    <td>{{$question->content}}</td>
-                                    <td>{{ $question->A }}</td>
-                                    <td>{{ $question-> B}}</td>
-                                    <td>{{ $question->C }}</td>
-                                    <td>{{ $question->D }}</td>
-                                    <td>{{ $question->answer }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-                <div class="uk-modal-footer uk-text-right">
-                    <button class="button uk-button-primary" type="button" onclick="printAnswers();"><i class="icofont-printer px-2"></i> print</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    function printAnswers()
+    function saveScore() 
     {
-        const solution = document.getElementById("solution")
-        let printWin = window.open()
+        let score_data = {
+            user_id: "{{ auth()->user()->id }}",
+            quiz_id: "{{ $quiz->id }}",
+            user_score: score,
+            max_quiz_score: "{{ $quiz_points }}"
+        }
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        
+        $.ajax({
+            url: '/quizzes/post-score',
+            method: 'post',
+            data: score_data,
+            success: function(){
+                
+            }});
 
-        printWin.document.write(solution.innerHTML)
-        printWin.print()
     }
 
 </script>

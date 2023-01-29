@@ -44,6 +44,9 @@ Route::get('quizzes', [App\Http\Controllers\QuizController::class, 'displayQuizz
 Route::get('/quiz/{quiz:slug}', [App\Http\Controllers\QuizController::class, 'quizGenerator'])->name('display.quiz');
 Route::get('user_quiz/{quiz_id}/quiz-questions', [App\Http\Controllers\QuizController::class, 'createUserQuiz'])->name('user.quiz');
 Route::get('/quizzes/user-quizzes', [App\Http\Controllers\QuizController::class, 'getAllQuizzess'])->name('all.quizzes');
+Route::get('/quizzes/{quiz:slug}/print-answers', [App\Http\Controllers\QuizController::class, 'printAnswers'])->name('print.answers'); //remember to protect this route
+Route::post('/quizzes/post-score', [App\Http\Controllers\QuizController::class, 'postUserScore']); 
+
 // quiz practice mode 
 Route::get('/subjects', [App\Http\Controllers\QuizPracticeModeController::class, 'getSubjects'])->name('subjects');
 Route::get('/subjects/{subject_id}/quiz-questions', [App\Http\Controllers\QuizPracticeModeController::class, 'getSubjectQuestions'])->name('questions');
@@ -92,6 +95,7 @@ Route::get('quest/add-question', [App\Http\Controllers\QuestController::class, '
 
 // Analytics
 Route::get('analytics', [App\Http\Controllers\AnalyticsController::class, 'analyseUsersContent'])->name('analytics');
+Route::post('/analytics/post', [App\Http\Controllers\AnalyticsController::class, 'getStats']);
 
 //Reviews
 Route::get('reviews', [App\Http\Controllers\ReviewsController::class, 'index'])->name('reviews');

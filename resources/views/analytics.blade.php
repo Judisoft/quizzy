@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="panel-content">
-                <h4 class="main-title">Overview</h4>
+                <h4 class="main-title">Quiz Reports</h4>
                 <div class="row merged20 mb-4">
                     <div class="col-lg-4 col-md-6">
                         <div class="w-chart-section">
@@ -47,26 +47,39 @@
                 </div>
                 <div class="row merged20 mb-4">
                     <div class="col-lg-8 col-md-6 col-sm-12">
-                       @foreach($user_quizzes as $user_quiz)
-                            <a href="#">
-                                <div class="d-widget mt-4">
-                                    <div class="d-widget-title">
-                                        <h5 class="text-capitalize">{{ $user_quiz->title }} </h5>
-                                        <div class="small text-right">{{ $user_quiz->subject->title }}</div>
-                                    </div>
-                                    <div class="d-widget-content">
-                                        <div class="tabs tab-content">
-                                            <div class="tabcontent"> 
-                                                <h4>{{ $user_quiz->id }}</h4>
-                                            </div>
+                        <div class="d-widget mt-4">
+                            <div class="d-widget-title">
+                                <div class="uk-margin">
+                                    <select class="uk-select" onchange="getStatistics()" id="quizId">
+                                        <option value="">Select Quiz</option>
+                                        @foreach ($user_quizzes as $quiz)
+                                            <option value="{{ $quiz->id }}">{{ $quiz->title }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="d-widget-content">
+                                <div class="tabs tab-content">
+                                    <div class="tabcontent">
+                                        <div id="content">
+                                            <div class="row justify-content-center align-items-center">
+                                                <img src="{{ asset('backend/images/resources/stats4.svg') }}" height="100" width="100">
+                                            </div> 
+                                            <p class="text-center opacity-3 p-3">Select quiz to view stats</p>
+                                        </div>
+                                        <div class="uk-overflow-auto">
+                                            <table class="uk-table uk-table-striped">
+                                                <thead id="tHead">
+                                                </thead>
+                                                <tbody id="tableData">
+                                                   
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
-                            </a>
-                       @endforeach
-                       @if(count($user_quizzes) > 0)
-                            <div class="p-5">{{ $user_quizzes->links() }}</div>
-                        @endif
+                            </div>
+                        </div>
                     </div>
                     <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="d-widget blue-bg pd-0">
@@ -91,3 +104,47 @@
         </div>
     </div>
 </div><!-- main content -->
+
+<script>
+    let quizId = document.getElementById("quizId")
+    let tableData = document.getElementById("tableData")
+
+    function displayStats()
+    {
+        const content = document.getElementById("content")
+        const tHead = document.getElementById("tHead")
+        let tableData = document.getElementById("tableData")
+
+        content.innerHTML = `<p>Graph here</p>`
+        tHead.innerHTML = `<tr>
+                                <th>Username</th>
+                                <th>Email address</th>
+                                <th>Grade/100</th>
+                                <th>Date completed</th>
+                            </tr>`
+        tableData.innerHTML = user_scores.map((s) => {
+            return `<tr>
+                        <td>${s.user.name}</td>
+                        <td>${s.user.email}</td>
+                        <td>${s.score}</td>
+                        <td>${s.created_at}</td>
+                    </tr>`
+        }).join('')
+        
+}
+
+function getStatistics(){
+    axios.post('/analytics/post', {
+    quiz_id: quizId.value
+  })
+  .then(function (response) {
+    let res = JSON.stringify(response.data)
+     tableData.innerHTML = res
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+}
+
+
+</script>
