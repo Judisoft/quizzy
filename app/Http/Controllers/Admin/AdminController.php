@@ -27,11 +27,11 @@ class AdminController extends Controller
         $users_status = Payment::simplePaginate(25);
         //get number of questions per subject
 
-        $bio_quest = Question::where('subject', 'biology');
-        $chem_quest = Question::where('subject', 'chemistry');
-        $phy_quest = Question::where('subject', 'physics');
-        $gen_know_quest = Question::where('subject', 'general_knowledge');
-        $french_quest = Question::where('subject', 'french');
+        $bio_quest = Question::where('subject_id', 1);
+        $chem_quest = Question::where('subject_id', 3);
+        $phy_quest = Question::where('subject_id', 2);
+        $gen_know_quest = Question::where('subject_id', 4);
+        $french_quest = Question::where('subject_id', 6);
 
         // Earnings within last 24hrs
         $today_earning = Payment::where('created_at', '>=', Carbon::now()->subDay())->get()->sum('amount');

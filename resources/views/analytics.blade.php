@@ -65,13 +65,13 @@
                                             <div class="row justify-content-center align-items-center">
                                                 <img src="{{ asset('backend/images/resources/stats4.svg') }}" height="100" width="100">
                                             </div> 
-                                            <p class="text-center opacity-3 p-3">Select quiz to view stats</p>
+                                            <h5 class="text-center opacity-3 p-3">Select quiz to view stats</h5>
                                         </div>
                                         <div class="uk-overflow-auto">
                                             <table class="uk-table uk-table-striped">
                                                 <thead id="tHead">
                                                 </thead>
-                                                <tbody id="tableData">
+                                                <tbody id="tableData" class="text-center p-3">
                                                    
                                                 </tbody>
                                             </table>
@@ -108,42 +108,65 @@
 <script>
     let quizId = document.getElementById("quizId")
     let tableData = document.getElementById("tableData")
+    const content = document.getElementById("content")
 
-    function displayStats()
+
+function getStatistics(){
+    content.style.display = "none"
+    axios.post('/analytics/post', {
+    quiz_id: quizId.value
+  })
+  .then(function (response) {
+    // let res = JSON.stringify(response.data)
+    let res = response.data
+    
+    displayStats(res)
+     
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+}
+
+function displayStats(data)
     {
-        const content = document.getElementById("content")
         const tHead = document.getElementById("tHead")
         let tableData = document.getElementById("tableData")
-
+        
         content.innerHTML = `<p>Graph here</p>`
         tHead.innerHTML = `<tr>
                                 <th>Username</th>
                                 <th>Email address</th>
                                 <th>Grade/100</th>
+                                <th>Attempts</th>
                                 <th>Date completed</th>
                             </tr>`
-        tableData.innerHTML = user_scores.map((s) => {
-            return `<tr>
-                        <td>${s.user.name}</td>
-                        <td>${s.user.email}</td>
-                        <td>${s.score}</td>
-                        <td>${s.created_at}</td>
-                    </tr>`
-        }).join('')
-        
-}
 
-function getStatistics(){
-    axios.post('/analytics/post', {
-    quiz_id: quizId.value
-  })
-  .then(function (response) {
-    let res = JSON.stringify(response.data)
-     tableData.innerHTML = res
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
+        tableData.innerHTML = ""
+        if(data.length === 0 )
+        {
+            tHead.innerHTML = `<div class="text-center">
+                                    <h5 class="p-2">This quiz has not been taken</h5>
+                                    <a href="#"><button class="button small">Share quiz link</button></a>
+                                </div>`
+        }else
+        {
+            data.forEach(element => {
+            
+                tableData.innerHTML += `<tr class="text-left">
+                                            <td><a href="/analytics/user-performance/${element.user.id}/${element.quiz_id}" class="text-primary">${element.user.name}</a></td>
+                                            <td>${element.user.email}</td>
+                                            <td>${((element.score / element.max_quiz_score) * 100).toFixed(1)}</td>
+                                            <td>${element.attempts}</td>
+                                            <td>${(element.user.created_at).replace(".000000Z", '')}</td>
+                                        </tr>`
+            });
+
+        }
+
+       console.log(data)
+        
+        
 }
 
 

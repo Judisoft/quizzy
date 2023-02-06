@@ -197,4 +197,5 @@ class QuizController extends Controller
 
         return response()->json('success', 201);
     }
+
 }

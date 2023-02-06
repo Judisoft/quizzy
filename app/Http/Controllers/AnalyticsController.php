@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PerformanceAnalysis;
 use Illuminate\Http\Request;
 use Auth;
 use App\Models\Question;
@@ -25,18 +26,27 @@ class AnalyticsController extends Controller
     {
         $id = $request->quiz_id;
 
-        $score_id = QuizScore::select('id')->where('quiz_id', $id)->get();
-        $user_scores = array();
-        $i = 0;
-        foreach($score_id as $sc_id)
-        {
-            $i++;
-
-            $data = QuizScore::find($sc_id->id)->user;
-
-            array_push($user_scores,$data);
-        }
-
+        $user_scores = QuizScore::where('quiz_id', $id)->with('user')->get();
+        
         return response()->json($user_scores);
+    }
+
+    public function quizPerformanceAnalysis(Request $request)
+    {
+        $quiz_performance =  new PerformanceAnalysis();
+        $quiz_performance->quiz_id = $request->quiz_id;
+        $quiz_performance->user_id = $request->user_id;
+        $quiz_performance->question_id = $request->question_id;
+        $quiz_performance->answer_correct = $request->correct_answer;
+        $quiz_performance->save();
+        return response()->json('sucess', 'performance saved');
+    }
+
+    public function getUserPerformance($id, $quiz_id)
+    {
+        $user_performance = PerformanceAnalysis::where('user_id', $id)->with('question')->get();
+        $user = User::find($id);
+        // dd($user_performance);
+        return view('user_performance', compact('user_performance', 'user'));
     }
 }

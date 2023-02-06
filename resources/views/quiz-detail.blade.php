@@ -193,6 +193,7 @@
     let topicName = document.getElementById("topicName")
     let questionProgress = document.getElementById("questionProgress")
     const timer = document.getElementById("timer")
+    let isAnswerCorrect
 
     // get questions from db
 
@@ -278,6 +279,8 @@
             count++
         }else{
             count = 0;
+            isAnswerCorrect = 0
+            performanceAnalysis("{{ auth()->user()->id }}", "{{ $quiz->id }}", questions[runningQuestion].id, isAnswerCorrect)
           
             if(runningQuestion < lastQuestion){
                 runningQuestion++;
@@ -298,31 +301,42 @@
 
     // checkAnwer
 
-    function checkAnswer(userAnswer){
-        if( userAnswer == questions[runningQuestion].answer){
+    function checkAnswer(userAnswer)
+    {
+
+        if( userAnswer == questions[runningQuestion].answer)
+        {
 
             // answer is correct
+            isAnswerCorrect = 1;
+            performanceAnalysis("{{ auth()->user()->id }}", "{{ $quiz->id }}", questions[runningQuestion].id, isAnswerCorrect)
             score += questions[runningQuestion].points;
-            if(runningQuestion < lastQuestion){
-            runningQuestion++;
-            renderQuestion();
-        }else{
-            // end the quiz and show the score
-            clearInterval(TIMER);
-            scoreRender();
-        }
+
+            if(runningQuestion < lastQuestion)
+            {
+                runningQuestion++;
+                renderQuestion();
+            }else{
+                // end the quiz and show the score
+                
+                clearInterval(TIMER);
+                scoreRender();
+            }
         
         }else{
-           
-        count = 0;
-        if(runningQuestion < lastQuestion){
-            runningQuestion++;
-            renderQuestion();
-        }else{
-            // end the quiz and show the score
-            clearInterval(TIMER);
-            scoreRender();
-        }
+        
+            count = 0;
+             isAnswerCorrect = 0;
+            performanceAnalysis("{{ auth()->user()->id }}", "{{ $quiz->id }}", questions[runningQuestion].id, isAnswerCorrect)
+
+            if(runningQuestion < lastQuestion){
+                runningQuestion++;
+                renderQuestion();
+            }else{
+                // end the quiz and show the score
+                clearInterval(TIMER);
+                scoreRender();
+            }
         }
 
     }
@@ -381,6 +395,22 @@
                 
             }});
 
+    }
+
+    function performanceAnalysis(userId,quizId,questionId,correctAnswer)
+    {
+        axios.post('/analytics/question/post', {
+        user_id: userId,
+        quiz_id: quizId,
+        question_id: questionId,
+        correct_answer: correctAnswer
+        })
+        .then(function (response) {
+            console.log(response)            
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
     }
 
 </script>

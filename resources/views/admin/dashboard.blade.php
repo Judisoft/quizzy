@@ -8,32 +8,29 @@
     <meta name="description" content="Medxam is an online quiz platform for students preparing for Nationa entrance examination to study medecine">
     <title>Dashboard | Medxam</title>
 
-    <!-- STYLESHEETS -->
-    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~--- -->
+ <!-- Fonts [ OPTIONAL ] -->
+ <link rel="preconnect" href="https://fonts.googleapis.com/">
+ <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&amp;family=Ubuntu:wght@400;500;700&amp;display=swap" rel="stylesheet">
 
-    <!-- Fonts [ OPTIONAL ] -->
-    <link rel="preconnect" href="https://fonts.googleapis.com/">
-    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&amp;family=Ubuntu:wght@400;500;700&amp;display=swap" rel="stylesheet">
+ <!-- Bootstrap CSS [ REQUIRED ] -->
+ <link rel="stylesheet" href="{{ asset('backend/admin/assets/css/bootstrap.min.75a07e3a3100a6fed983b15ad1b297c127a8c2335854b0efc3363731475cbed6.css') }}">
 
-    <link rel="stylesheet" href="assets/css/bootstrap.min.75a07e3a3100a6fed983b15ad1b297c127a8c2335854b0efc3363731475cbed6.css">
+ <!-- Nifty CSS [ REQUIRED ] -->
+ <link rel="stylesheet" href="{{ asset('backend/admin/assets/css/nifty.min.4d1ebee0c2ac4ed3c2df72b5178fb60181cfff43375388fee0f4af67ecf44050.css')}}">
 
-    <link rel="stylesheet" href="assets/css/nifty.min.4d1ebee0c2ac4ed3c2df72b5178fb60181cfff43375388fee0f4af67ecf44050.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
-    <style>
-        .logo-img{
-          height: 40px;
-          width: 40px; 
-          background-color: #4267B2;
-          padding: 3px;
-          border-radius: 10px;
-          
-        }
-      </style>
-  
 </head>
-
+<style>
+    .logo-img{
+      height: 40px;
+      width: 40px; 
+      background-color: #4267B2;
+      padding: 3px;
+      border-radius: 10px;
+      
+    }
+    
+</style>
 <body class="jumping">
 
     <!-- PAGE CONTAINER -->

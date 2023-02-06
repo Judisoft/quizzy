@@ -37,9 +37,9 @@ class Question extends Model
         return $this->belongsTo(Subject::class);
     }
 
-    public function topics()
+    public function topic()
     {
-        return $this->hasMany(Topic::class);
+        return $this->belongsTo(Topic::class);
     }
 
     public function user()

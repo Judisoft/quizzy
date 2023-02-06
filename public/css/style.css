@@ -6879,7 +6879,7 @@ input:checked + .switch:active::before {
 }
 .pplan-links > li {
     display: inline-block;
-    font-size: 15px;
+    font-size: 18px;
     font-weight: 500;
     margin-bottom: 20px;
     vertical-align: middle;

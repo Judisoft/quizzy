@@ -96,6 +96,8 @@ Route::get('quest/add-question', [App\Http\Controllers\QuestController::class, '
 // Analytics
 Route::get('analytics', [App\Http\Controllers\AnalyticsController::class, 'analyseUsersContent'])->name('analytics');
 Route::post('/analytics/post', [App\Http\Controllers\AnalyticsController::class, 'getStats']);
+Route::post('/analytics/question/post', [App\Http\Controllers\AnalyticsController::class, 'quizPerformanceAnalysis']);
+Route::get('/analytics/user-performance/{id}/{quiz_id}', [App\Http\Controllers\AnalyticsController::class, 'getUserPerformance'])->name('user.performance');
 
 //Reviews
 Route::get('reviews', [App\Http\Controllers\ReviewsController::class, 'index'])->name('reviews');
