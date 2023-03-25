@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\QuizScore;
+use App\Models\Quiz;
 use Illuminate\Http\Request;
 
-class ReviewsController extends Controller
+class EvaluationsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +15,9 @@ class ReviewsController extends Controller
      */
     public function index()
     {
-        return view('reviews.index');
+        $evaluations = QuizScore::where('user_id', auth()->user()->id)->with('quiz')->orderBy('id', 'DESC')->simplePaginate(10);
+
+        return view('evaluations', compact('evaluations'));
     }
 
     /**
@@ -45,7 +49,10 @@ class ReviewsController extends Controller
      */
     public function show($id)
     {
-        //
+        $quiz = Quiz::find($id);
+        $questions = $quiz->questions;
+        $score = $quiz->quiz_scores->max();
+        return view('evaluation-detail', compact('quiz', 'questions', 'score'));
     }
 
     /**

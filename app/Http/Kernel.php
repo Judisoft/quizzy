@@ -66,5 +66,6 @@ class Kernel extends HttpKernel
         'verify.payment' => \App\Http\Middleware\IsPremium::class,
         'admin' => \App\Http\Middleware\IsAdmin::class,
         'trial' => \App\Http\Middleware\isTrialValid::class,
+        'quiz.attempt' => \App\Http\Middleware\isQuizAttemptValid::class,
     ];
 }

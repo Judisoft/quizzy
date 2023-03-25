@@ -15,7 +15,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="panel-content">
-                <h4 class="main-title">Our Prices</h4>
+                <h4 class="main-title">Quizzy Plans</h4>
                 <h6 class="mb-4">Our prices included with tax is charged and expires 30 days after subscription </h6>
                 <div class="price-plan-wraper">
                     <table class="table table-striped table-responsive-md">
@@ -30,11 +30,11 @@
                                 </th>
                                 <th>
                                     <ins>Basic</ins>
-                                    <span>(XAF 2000 / Month)</span>
+                                    <span>(XAF {{ $basic }} / Month)</span>
                                 </th>
                                 <th>
-                                    <ins>Professional</ins>
-                                    <span>(XAF 5000 / Month)</span>
+                                    <ins>Ultimate</ins>
+                                    <span>(XAF {{ $ultimate }} / Month)</span>
                                 </th>
                             </tr>
                         </thead>
@@ -119,32 +119,29 @@
                             <tr>
                                 <td colspan="1"></td>
                                 <td>
-                                    <a href="#" title="" class="button outline-primary">Choose Plan</a>
+                                    <a href="#" title="" class="button soft-danger">Your current plan</a>
                                 </td>
                                 <td>
-                                    <a href="#" title="" class="button outline-primary">Choose Plan</a>
+                                    <a href="{{ route('payment', 'basic') }}" title="" class="button outline-primary">Choose Plan</a>
                                 </td>
                                 <td>
-                                    <a href="#" title="" class="button outline-primary">Choose Plan</a>
+                                    <a href="{{ route('payment', 'ultimate') }}" title="" class="button outline-primary">Choose Plan</a>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                    <h5><i class="icofont-crown-queen text-primary px-2 h3"></i> More Powerful Features <b>Coming Soon!</b></h5>
                 </div>
                 <div class="main-wraper">
                     <ul class="pplan-links">
                         <li>Prices are in FCFA. 
-                            <a href="#" title="">Pay with your prefered Mobile Money Network <i class="icofont-mobile-phone text-primary px-2 h4"></i></a>
+                            <a href="#" title="">Pay with your prefered Mobile Money Network <i class="icofont-mobile-phone text-primary px-2 h5"></i></a>
                         </li>
                         <li>Already subscribed and want to upgrade or downgrade? 
-                            <a href="#" title="">The easy way <i class="icofont-settings text-primary px-2 h4"></i></a>
+                            <a href="#" title="">The easy way <i class="icofont-settings text-primary px-2 h5"></i></a>
                         </li>
-                        <li>Questions? 
-                            <a href="#" title="">Go to FAQ's <i class="icofont-question-circle text-primary px-2 h4"></i></a>
-                        </li>
-                        <li>Trouble Shooting 
-                            <a href="#" title=""> Contact our Team <i class="icofont-team text-primary px-2 h4"></i></a>
+                        <li>Got Questions? 
+                            <a href="#" title="">Go to FAQ's <i class="icofont-question-circle text-primary px-2 h5"></i></a> or
+                            <a href="{{ route('contact') }}" title=""> Contact our Team <i class="icofont-team text-primary px-2 h5"></i></a>
                         </li>
                     </ul>
                 </div>

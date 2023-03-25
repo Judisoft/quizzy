@@ -23,4 +23,14 @@ class QuizScore extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function quiz()
+    {
+        return $this->belongsTo(Quiz::class);
+    }
+
+    public function hasAuthUserTakenQuiz($quiz_id)
+    {
+        return $this->where('user_id', auth()->user()->id)->where('quiz_id', $quiz_id)->exists();
+    }
+
 }

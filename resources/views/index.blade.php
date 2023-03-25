@@ -76,6 +76,7 @@
 				</form>
 			</div>
 			<ul>
+				<li><a href="{{ route('dashboard') }}" title="">Dashboard</a></li>
 				<li><a href="{{ route('plans') }}" title="">Plans</a></li>
 				<li><a href="{{ route('contact') }}" title="">contact</a></li>
 				<li><a href="{{ route('help') }}" title="">help center</a></li>

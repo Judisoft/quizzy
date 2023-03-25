@@ -47,7 +47,7 @@
                 </div>
                 <div class="row merged20 mb-4">
                     <div class="col-lg-8 col-md-6 col-sm-12">
-                        <div class="d-widget mt-4">
+                        <div class="d-widget">
                             <div class="d-widget-title">
                                 <div class="uk-margin">
                                     <select class="uk-select" onchange="getStatistics()" id="quizId">
@@ -63,7 +63,7 @@
                                     <div class="tabcontent">
                                         <div id="content">
                                             <div class="row justify-content-center align-items-center">
-                                                <img src="{{ asset('backend/images/resources/stats4.svg') }}" height="100" width="100">
+                                                <img src="{{ asset('backend/images/resources/stats4.svg') }}" height="150" width="150">
                                             </div> 
                                             <h5 class="text-center opacity-3 p-3">Select quiz to view stats</h5>
                                         </div>
@@ -82,7 +82,7 @@
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 col-sm-12">
-                        <div class="d-widget blue-bg pd-0">
+                        <div class="d-widget pd-0">
                             <div class="d-widget-content">
                                 <div class="w-numeric-value">
                                     <div class="w-icon">
@@ -162,12 +162,9 @@ function displayStats(data)
                                         </tr>`
             });
 
-        }
-
-       console.log(data)
+        }        
         
-        
-}
+    }
 
 
 </script>

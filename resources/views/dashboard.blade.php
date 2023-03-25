@@ -3,18 +3,18 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="panel-content">
-                <h4 class="main-title">Welcome {{auth()->user()->name}}!</h4>
+                <h4 class="main-title fw-600">Welcome {{auth()->user()->name}}!</h4>
                 <div class="row merged20 mb-4">
                     <div class="col-lg-4 col-md-4 col-sm-4">
                         <div class="d-widget d-widget-action soft-red">
                             <div class="d-widget-title">
-                                <h5>Quizzes</h5>
+                                <h3 class="fw-700">Quizzes</h3>
                             </div>
                             <div class="d-widget-content">
                                 <span class="realtime-ico pulse"></span>
-                                <h6><a href="#modal-center" uk-toggle>Take quiz</a></h6>
-                                <h5 class="opacity-3">{{ $quizzes->count() }} Qz</h5>
-                                <i class="icofont-light-bulb"></i>
+                                <h6><a href="#modal-center" class="text-primary fw-500" uk-toggle>Take quiz</a></h6>
+                                <h5 class="opacity-3 text-primary">{{ $quizzes->count() }}</h5>
+                                <i class="icofont-dice-multiple"></i>
                             </div>
                             <div id="modal-center" class="uk-flex-top" uk-modal>
                                 <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
@@ -38,26 +38,39 @@
                     <div class="col-lg-4 col-md-4 col-sm-4">
                         <div class="d-widget d-widget-action soft-blue">
                             <div class="d-widget-title">
-                                <h5>Quiz Questions</h5>
+                                <h3 class="fw-700">Questions</h3>
                             </div>
                             <div class="d-widget-content">
                                 <span class="realtime-ico pulse"></span>
-                                <h6><a href="{{route('show.questions')}}">Create a quiz</a></h6>
-                                <h5 class="opacity-3">{{ $questions->count() }} Qs</h5>
-                                <i class="icofont-check-circled"></i>
+                                <h6><a href="{{route('subjects')}}" class="text-primary fw-500">View questions</a></h6>
+                                <h5 class="opacity-3 text-primary">{{ $questions->count() }}</h5>
+                                <i class="icofont-files-stack"></i>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-4">
                         <div class="d-widget d-widget-action soft-green">
                             <div class="d-widget-title">
-                                <h5>Weekly Challenge</h5>
+                                <h3 class="fw-700">Quiz Challenge</h3>
                             </div>
                             <div class="d-widget-content">
                                 <span class="realtime-ico pulse"></span>
-                                <h6><a href="{{ route('weekly.challenge') }}">Challenge your peers</a></h6>
-                                <h5 class="opacity-3">{{ $participants->count() }} Ps</h5>
-                                <i class="icofont-badge"></i>
+                                <h6><a href="{{ route('weekly.challenge') }}" class="text-primary fw-500">Challenge your peers</a></h6>
+                                <h5 class="opacity-3 text-primary">{{ $participants->count() }} </h5>
+                                <i class="icofont-cubes"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row merged20 mb-4">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="d-widget">
+                            <div class="d-widget-title">
+                                <h3 class="fw-700">Quiz Performance</h3>
+                            </div>
+                            <div class="d-widget-content">
+                                <i class="icofont-chart-flow-1"></i>
+                                <div id="chart_div" style="width: 100%;height: 500px;"></div>
                             </div>
                         </div>
                     </div>
@@ -66,94 +79,51 @@
                     <div class="col-lg-6">
                         <div class="d-widget">
                             <div class="d-widget-title">
-                                <h5>Events Schedule</h5>
+                                <h5>Scheduled Evaluations</h5>
                             </div>
                             <ul class="upcoming-event">
-                                <li>
-                                    <div class="event-date soft-red">
-                                        <i>24 FEB</i>
-                                        <span>2021</span>
-                                    </div>
-                                    <div class="event-deta">
-                                        <h5>digital marketing summit</h5>
-                                        <ul>
-                                            <li><i class="icofont-user"></i> steve Josef</li>
-                                            <li><i class="icofont-map-pins"></i> New York City</li>
-                                            <li><i class="icofont-clock-time"></i> 9:00PM-12AM</li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="event-date soft-green">
-                                        <i>10 MAR</i>
-                                        <span>2021</span>
-                                    </div>
-                                    <div class="event-deta">
-                                        <h5>digital marketing summit</h5>
-                                        <ul>
-                                            <li><i class="icofont-user"></i> steve Josef</li>
-                                            <li><i class="icofont-map-pins"></i> New York City</li>
-                                            <li><i class="icofont-clock-time"></i> 9:00PM-12AM</li>
-                                        </ul>
-                                    </div>
-                                </li>
+                                @foreach ($scheduled_quizzes as $quiz)
                                 <li>
                                     <div class="event-date soft-blue">
-                                        <i>20 OCT</i>
-                                        <span>2021</span>
+                                        <i>{{ $quiz->created_at->format('d') }} {{ $quiz->created_at->format('M') }}</i>
+                                        <span>{{ $quiz->created_at->format('Y') }}</span>
                                     </div>
                                     <div class="event-deta">
-                                        <h5>digital marketing summit</h5>
+                                        <h5><a href="{{ route('display.quiz', $quiz) }}">{{ $quiz->title }}</a></h5>
                                         <ul>
-                                            <li><i class="icofont-user"></i> steve Josef</li>
-                                            <li><i class="icofont-map-pins"></i> New York City</li>
-                                            <li><i class="icofont-clock-time"></i> 9:00PM-12AM</li>
+                                            <li><i class="icofont-user"></i> {{ $quiz->user->name }}</li>
+                                            <li><i class="icofont-file-alt"></i> {{ $quiz->questions->count()}}</li>
+                                            <li><i class="icofont-clock-time"></i> {{ $quiz->created_at->format('H:i:s:a') }}</li>
                                         </ul>
                                     </div>
                                 </li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="d-widget">
                             <div class="d-widget-title">
-                                <h5>Notice Borad</h5>
+                                <h5>Notice Board</h5>
                             </div>
                             <div class="d-Notices"> 
                                 <ul>
-                                    <li>
-                                        <p>March 21, 2021</p>
-                                        <h6><a href="#" title="">Mr. William</a> <span>5 mint ago</span></h6>
-                                        <p>
-                                            invited to join the meeting in the conference room at 9.45 am
-                                        </p>
-                                        <div class="action-btns">
-                                            <div class="button soft-danger" title="ignore"><i class="icofont-trash"></i></div>
-                                            <div class="button soft-primary" title="save"><i class="icofont-star"></i></div>
-                                        </div>	
-                                    </li>
-                                    <li>
-                                        <p>Feb 15, 2021</p>
-                                        <h6><a href="#" title="">Andrew </a> <span>35 mint ago</span></h6>
-                                        <p>
-                                            created a group 'Hencework' in the discussion forum
-                                        </p>
-                                        <div class="action-btns">
-                                            <div class="button soft-danger" title="ignore"><i class="icofont-trash"></i></div>
-                                            <div class="button soft-primary" title="save"><i class="icofont-star"></i></div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <p>Jan 10, 2021</p>
-                                        <h6><a href="#" title="">Franklyn J.</a> <span>40 mint ago</span></h6>
-                                        <p>
-                                            Prepare the conference schedule
-                                        </p>
-                                        <div class="action-btns">
-                                            <div class="button soft-danger" title="ignore"><i class="icofont-trash"></i></div>
-                                            <div class="button soft-primary" title="save"><i class="icofont-star"></i></div>
-                                        </div>
-                                    </li>
+                                    @forelse ($team->teamInvitations as $invitation)
+                                        <li>
+                                            <p>{{ $invitation->created_at->format('l jS \o\f F Y ') }}</p>
+                                            <h6><a href="#" title="">{{ $team->owner }}</a> <span>{{ $invitation->created_at->diffForHumans() }}</span></h6>
+                                            <p>
+                                                {{$invitation->team->name  }}
+                                            </p>
+                                            <div class="action-btns">
+                                                <div class="button soft-danger" title="ignore">decline</div>
+                                                <div class="button soft-primary" title="save">accept</div>
+                                            </div>
+                                        </li>
+                                    @empty
+                                        <p class="text-center">Enjoy the silence</p>
+                                    @endforelse
+                                        
                                 </ul>
                             </div>
                         </div>
@@ -163,5 +133,39 @@
         </div>
     </div>
 </div><!-- main content -->
+<script type="text/javascript">
 
+var userScore = <?php echo $result; ?>; //
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
 
+    function drawChart() {
+    var data = google.visualization.arrayToDataTable(userScore);
+
+    var options = {
+                    series: {
+                        0: { color: '#008dcd' },
+                        1: { color: '#6f9654' }
+                    },
+                    hAxis: {
+                        title: 'Quizzes',  
+                        titleTextStyle: {
+                                color: '#008dcd'
+                            }
+                        },
+                    vAxis: {title: 'Score (%)', 
+                            titleTextStyle: {
+                                color: '#008dcd'
+                            },
+                            baselineColor: '#008dcd', 
+                            minValue: 0, 
+                            gridlines: {
+                                color: 'transparent'
+                            }
+                        }
+    };
+
+    var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+    chart.draw(data, options);
+    }
+</script>

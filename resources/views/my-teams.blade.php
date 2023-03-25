@@ -3,63 +3,61 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="panel-content">
-                <div class="row merged20 mb-4">
-                    <div class="col-lg-12">
-                        <div class="p-2">
-                            <div class="">
-                                <div class="uk-flex uk-flex-between">
-                                    <div class=""><h4 class="main-title">My Teams</h4></div>
-                                    <div class=""><button class="button primary"><a><i class="icofont-users"></i> create a Team</a></button></div>
+                <h4 class="main-title">My Teams</h4>
+                @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
+                    <div class="row merged20mt-5 mb-4">
+                        <div class="col-lg-3">                           
+                            @forelse(Auth::user()->allTeams() as $team)
+                                <div class="d-widget-title mb-4">
+                                    <a href="{{ url('/my-teams/team-details/'.$team->id) }}" style="color:#008dcd;">
+                                        {{ $team->name }}
+                                        @if(Auth::user()->ownsTeam($team))
+                                            <small class="text-secondary">[{{ $team->users->count() }}]</small>
+                                        @endif
+                                    </a>
                                 </div>
-                            </div>
-                            @foreach($user->teams as $team)
-                                <a href="{{ url('/my-teams/team-details/'.$team->id) }}">
-                                    <div class="d-widget mt-3" style="border-left:8px solid #088dcd;">
-                                        <h4 style="font-weight:400;">{{ $team->name }}</h4>
-                                    </div>
-                                </a>
-                            @endforeach
-                            <div class="mt-3 p-2">
-                                <table class="table table-default all-events table-striped table-responsive-lg">
-                                    @if($user->teams->count() > 0)
+                            @empty
+                                <p>No team</p>
+                            @endforelse
+                            @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
+                                <a href="{{ route('teams.create') }}"><button class="button small primary">Create New Team</button></a>
+                            @endcan
+                        </div>
+                        <div class="col-lg-8 col-md-12 col-sm-12">
+                            <div class="d-widget">
+                                <div class="d-widget-title">
+                                    <h5>Team Invitations</h5>
+                                </div>
+                                <table class="table-default manage-user table table-striped table-responsive-md">
+                                    @if ($team->teamInvitations->isNotEmpty() && Gate::check('addTeamMember', $team))
                                         <thead>
                                             <tr>
-                                                <th>Name</th>
-                                                <th>Student email</th>
-                                                <th>Parent/Guardian Email</th>
-                                                <th>Action</th>
+                                                <th>Email</th>
+                                                <th>Team Name</th>
+                                                <th>Role</th>
+                                                <th>Date</th>
                                             </tr>
                                         </thead>
                                     @endif
-                                    {{-- <tbody>
-                                        @forelse($user->teams as $team)
+                                    <tbody>
+                                        @forelse ($team->teamInvitations as $invitation)
                                             <tr>
-                                            <td><a href="{{ url('/my-teams/team-details/'.$team->id) }}">{{ $team->name }}</a></td>
+                                                <td>{{ $invitation->email }}</td>
+                                                <td>{{$invitation->team->name  }}</td>
                                                 <td>
-                                                    <div class="image-bunch">
-                                                        <img src="images/resources/small-pic2.png" alt="">
-                                                        <img src="images/resources/small-pic1.png" alt="">
-                                                        <img src="images/resources/small-pic3.png" alt="">
-                                                        <span>9+</span>
-                                                    </div>
+                                                {{ $invitation->role }}
                                                 </td>
-                                                <td>{{ $team->created_at->diffForHumans() }}</td>
-                                                <td>
-                                                    <div class="button soft-danger"><i class="icofont-trash"></i></div>
-                                                    <div class="button soft-primary"><i class="icofont-pen-alt-1"></i></div>
-                                                </td>
+                                                <td>{{ $invitation->created_at->diffForHumans() }}</td>
                                             </tr>
                                         @empty
-                                            <div class="text-center">
-                                                <p class="opacity-3">No team</p>
-                                            </div>
+                                            <p class="text-center">You have no team invitations</p>
                                         @endforelse
-                                    </tbody> --}}
+                                    </tbody>
                                 </table>
-                            </div>	
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endif
             </div>
         </div>
     </div>

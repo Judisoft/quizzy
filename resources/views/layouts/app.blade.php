@@ -8,7 +8,9 @@
         <title>{{ config('app.name', 'StudentPortal') }}</title>
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900;&display=swap">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('backend/css/app.css') }}">
@@ -24,11 +26,16 @@
         {{-- <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script> --}}
          <!-- ck editor -->
         <script src="https://cdn.ckeditor.com/4.17.1/standard-all/ckeditor.js"></script>
+        <style>
+            .shadow{
+                box-shadow: rgb(0 0 0 / 16%) 0px 1px 4px;
+            }
+        </style>
     </head>
-    <body class="font-sans antialiased sm:mx-3">
+    <body class="font-sans antialiased sm:mx-3" style="background-color:rgb(247, 248, 249);font-family: 'Roboto', sans-serif;">
         <x-jet-banner />
 
-        <div class="min-h-screen bg-gray-100">
+        <div class="min-h-screen">
             @livewire('navigation-menu')
 
             <!-- Page Heading -->
@@ -47,7 +54,7 @@
             <footer>
                 <div class="flex justify-center sm:items-center">
                     <div class="ml-4 pt-2 text-center bottom-0 pb-3 text-sm text-gray-500 sm:text-right sm:ml-0 opacity-75">
-                        &copy; 2022 Medxam v1.0 | Powered by StudentPortal-CM
+                        &copy; 2022 Quizzy v1.0 | Powered by StudentPortal-CM
                     </div>
                 </div>
             </footer>

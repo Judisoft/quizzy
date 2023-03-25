@@ -47,11 +47,12 @@
 
   CKEDITOR.plugins.addExternal('ckeditor_wiris', 'https://ckeditor.com/docs/ckeditor4/4.17.1/examples/assets/plugins/ckeditor_wiris/', 'plugin.js');
 
-  CKEDITOR.replace('editor1', {
+  CKEDITOR.replace('question', {
     extraPlugins: 'ckeditor_wiris',
     // For now, MathType is incompatible with CKEditor file upload plugins.
     removePlugins: 'uploadimage,uploadwidget,uploadfile,filetools,filebrowser',
-    height: 200,
+    height: 150,
+    uiColor: '#F7F8F9',
     // Update the ACF configuration with MathML syntax.
     extraAllowedContent: mathElements.join(' ') + '(*)[*]{*};img[data-mathml,data-custom-editor,role](Wirisformula)',
     removeButtons: 'PasteFromWord'
@@ -107,11 +108,12 @@
 
   CKEDITOR.plugins.addExternal('ckeditor_wiris', 'https://ckeditor.com/docs/ckeditor4/4.17.1/examples/assets/plugins/ckeditor_wiris/', 'plugin.js');
 
-  CKEDITOR.replace('editor2', {
+  CKEDITOR.replace('optionA', {
     extraPlugins: 'ckeditor_wiris',
     // For now, MathType is incompatible with CKEditor file upload plugins.
     removePlugins: 'uploadimage,uploadwidget,uploadfile,filetools,filebrowser',
     height: 60,
+    uiColor: '#F7F8F9',
     // Update the ACF configuration with MathML syntax.
     extraAllowedContent: mathElements.join(' ') + '(*)[*]{*};img[data-mathml,data-custom-editor,role](Wirisformula)',
     removeButtons: 'PasteFromWord',

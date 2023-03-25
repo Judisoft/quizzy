@@ -15,16 +15,24 @@
     <link rel="stylesheet" href="{{asset('backend/css/color.css')}}">
     <link rel="stylesheet" href="{{asset('backend/css/responsive.css')}}">
 	<link href="{{ asset('backend/plugins/apex/apexcharts.css') }}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- ck editor -->
-    <script src="https://cdn.ckeditor.com/4.17.1/standard-all/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/18.0.0/classic/ckeditor.js"></script>
+
+    <!--axios -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
     
     @livewireStyles
 
     <!-- Scripts -->
     <script src="{{ asset('backend/js/app.js') }}" defer></script>
     <script src="{{ asset('backend/js/quiz.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.5/dayjs.min.js" integrity="sha512-Ot7ArUEhJDU0cwoBNNnWe487kjL5wAOsIYig8llY/l0P2TUFwgsAHVmrZMHsT8NGo+HwkjTJsNErS6QqIkBxDw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.5/plugin/relativeTime.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
 </head>
 <body>
 {{-- <div class="page-loader" id="page-loader">

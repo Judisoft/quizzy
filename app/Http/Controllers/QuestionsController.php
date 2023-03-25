@@ -64,8 +64,8 @@ class QuestionsController extends Controller
      * return: Response
      */
     
-     public function storeQuizTitle(Request $request)
-     {
+    public function storeQuizTitle(Request $request)
+    {
         $validator = $request->validate([
             'title' => 'required|min:3|unique:quizzes',
             'duration' => 'nullable',
@@ -98,5 +98,10 @@ class QuestionsController extends Controller
         }
 
         
-     }
+    }
+
+    public function createQuizQuestions(Request $request )
+    {
+        dd($request);
+    }
 }

@@ -18,6 +18,7 @@ use App\Models\Payment;
 use App\Models\Team;
 use App\Models\Quiz;
 use App\Models\QuizScore;
+use App\Models\Bookmark;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -104,6 +105,16 @@ class User extends Authenticatable implements MustVerifyEmail
     public function quiz_scores()
     {
         return $this->hasMany(QuizScore::class);
+    }
+
+    public function bookmarks()
+    {
+        return $this->hasMany(Bookmark::class);
+    }
+
+    public function level()
+    {
+        $this->belongsTo(Level::class);
     }
 
 }

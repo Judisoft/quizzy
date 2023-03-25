@@ -42,10 +42,10 @@ class AnalyticsController extends Controller
         return response()->json('sucess', 'performance saved');
     }
 
-    public function getUserPerformance($id, $quiz_id)
+    public function getUserPerformance($user_id, $quiz_id)
     {
-        $user_performance = PerformanceAnalysis::where('user_id', $id)->with('question')->get();
-        $user = User::find($id);
+        $user_performance = PerformanceAnalysis::where('user_id', $user_id)->with('question')->get();
+        $user = User::find($user_id);
         // dd($user_performance);
         return view('user_performance', compact('user_performance', 'user'));
     }

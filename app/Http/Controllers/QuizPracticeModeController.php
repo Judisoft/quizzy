@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Question;
 use App\Models\Subject;
 use App\Models\Quiz;
+use App\Models\Level;
+use App\Models\User;
 
 class QuizPracticeModeController extends Controller
 {
@@ -19,11 +21,18 @@ class QuizPracticeModeController extends Controller
     public function getSubjectQuestions($subject_id, Request $request) 
     {
         $subject = Subject::find($subject_id);
-        $questions = Question::where('subject_id', $subject_id)->orderBy('topic_id')->paginate(25);
-        // $topics = Question::select('topic_id')->where('subject_id', $subject_id)->distinct()->paginate(25);
+        $questions = Question::with('user', 'level', 'subject', 'topic')->where('subject_id', $subject_id)->orderBy('topic_id')->paginate(25);
         $topics = $subject->topics;
+        $levels = Level::all();
+        $share_btn = \Share::currentPage('Quizzy')
+        ->facebook()
+        ->twitter()
+        ->linkedin()
+        ->telegram()
+        ->whatsapp()        
+        ->reddit();
 
-        return view('questions-by-subject', compact('questions', 'subject', 'topics'));
+        return view('questions-by-subject', compact('questions', 'subject', 'topics', 'levels', 'subject_id', 'share_btn'));
     }
 
     public function nextQuestion() 
@@ -48,5 +57,40 @@ class QuizPracticeModeController extends Controller
 
         // return view('question-item', compact('question', 'subject', 'id', 'next_qid', 'next_question', 'previous_question'));
         
+    }
+
+    public function sortQuestions(Request $request)
+    {    
+        $questions = Question::with('user', 'level', 'subject')
+                              ->where([['level_id', '=', $request->level_id],
+                                        ['subject_id', '=', $request->subject_id],
+                                        ['topic_id', '=', $request->topic_id]
+                              ])
+                              ->get();
+        // $questions = new Question;
+        // if($request->level_id && $request->topic_id)
+        // {
+        //     $questions = Question::with('user', 'level', 'subject')
+        //                       ->where([['level_id', '=', $request->level_id],
+        //                                 ['subject_id', '=', $request->subject_id],
+        //                                 ['topic_id', '=', $request->topic_id]
+        //                       ])
+        //                       ->get();
+        // }
+
+        // if($request->level_id || $request->topic_id)
+        // {
+        //     $questions = Question::with('user', 'level', 'subject')
+        //                         ->where('subject_id', $request->subject_id)
+        //                         ->orWhere('level_id', $request->level_id)
+        //                         ->orWhere('topic_id', $request->topic_id)
+        //                         ->get();
+        // }
+        
+        return response()->json(
+            [
+                'questions' => $questions
+            ]
+        );
     }
 }

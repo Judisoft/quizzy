@@ -28,7 +28,7 @@
     position: relative;
     text-align: center;
     padding: 1rem;
-}
+    }
     #counter{
         font-size: 1.5em;
     }
@@ -53,9 +53,9 @@
             <div class="panel-content">
                 <div class="row merged20 mb-4">
                     <div class="col-lg-8 col-md-6 col-sm-12">
-                        <div class="uk-card uk-card-body bg-dark rounded">
+                        <div class="uk-card uk-card-body rounded" style="background-color:#1c305c;">
                             <h2 class="main-title text-capitalize text-light">{{ $quiz->title }}</h2>
-                            <p class="uk-text-meta uk-margin-remove-top">Created by {{ $quiz->user->name }}, {{ $quiz->created_at->diffForHumans() }}</p>
+                            <p class="uk-text-meta uk-margin-remove-top text-light">Created by {{ $quiz->user->name }}, {{ $quiz->created_at->diffForHumans() }}</p>
                         </div>
                        <div class="uk-flex uk-flex-around mt-3">
                             <div class="uk-card uk-card-body border-right">
@@ -144,25 +144,31 @@
                         @else
                             <p class="opacity-3 text-center h5">No question yet</p>
                         @endif
+                        <div class="bg-light p-5 mt-5">
+                            <div class="text-center mt-5">
+                                <h3>Engage learners from social media platforms?</h3>
+                                <div class="mt-3">
+                                    <a  href="#modal-center" uk-toggle><button class="button primary" >Share this Quiz</button></a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-lg-4 col-md-6 col-sm-12">
-                        <div class="d-widget bg-light pd-0">
+                        <div class="d-widget">
+                            <div class="d-widget-title">
+                                <h2>Subjects</h2>
+                            </div>
                             <div class="d-widget-content">
-                                <div class="w-numeric-value">
-                                    <div class="d-content">
-                                        <h2 class="main-title">Subjects</h2>
-                                        <ul class="uk-list uk-list-divider">
-                                            @foreach ($subjects as $subject)
-                                                <li>
-                                                    <i class="icofont-square px-2 small"></i>
-                                                    <a href="{{ route('questions', $subject->id)}}">
-                                                        {{ $subject->title }}
-                                                    </a>
-                                                </li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                </div>
+                                <ul class="uk-list uk-list-divider">
+                                    @foreach ($subjects as $subject)
+                                        <li style="color:#008dcd">
+                                            <i class="icofont-square px-2 small"></i>
+                                            <a href="{{ route('questions', $subject->id)}}">
+                                                {{ $subject->title }}
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -171,6 +177,20 @@
         </div>
     </div>
 </div><!-- main content -->
+<div id="modal-center" class="uk-flex-top" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+        <div class="container mt-4">
+            <h1 class="text-center fw-700 py-3">Share Quiz</h1>
+            <img src="{{ asset('images/resources/share.svg') }}">
+            <h3 class="my-3 text-primary">Share with/via</h3>
+            <small>Enter name/email of user</small>
+            <input type="text" class="uk-input">
+            <h3 class="uk-heading-line uk-text-center"><span>OR</span></h3>
+            <div class="mt-3 text-center">{!! $share_btn !!}</div>
+        </div>        
+    </div>
+</div>
 
 <script>
     // select all elements
@@ -359,11 +379,12 @@
         // scoreDiv.innerHTML = "<img style='text-align:center' src="+ img +">";
         
         scoreDiv.innerHTML = `
-                            <h1 class='main-title blue-bg text-light border-3 py-3 pb-2 mt-3 text-center'>
+                            <h1 class='main-title py-3 pb-2 mt-3 text-center'>
 
                                 Score: ${score}/{{ $quiz_points }}  (${scorePerCent} %)
                             </h1><br>
                             <div class='uk-flex uk-flex-center'>
+
                                 <div><a href="{{ url()->current() }}"><button class="button danger">Retake Quiz</button></a></div>
                                 <div class="px-3"><a href="{{ route('print.answers', $quiz) }}" target="_blank"><button class="button success">view correction</button></a></div>
                             </div>

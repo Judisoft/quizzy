@@ -2,7 +2,7 @@
     <div class="res-logo">Logo</div>
     
     <div class="user-avatar mobile">
-        <a href="#" title="View Profile"><img src="{{ auth()->user()->profile_photo_url }}" alt="{{ auth()->user()->name }}"></a>
+        <a href="{{ route('profile.show') }}" title="View Profile"><img src="{{ auth()->user()->profile_photo_url }}" alt="{{ auth()->user()->name }}"></a>
         <div class="name">
             <h4>Saim Turan</h4>
             <span>Antalaya, Turky</span>
@@ -16,11 +16,14 @@
                     </i>
             </div>
             <ul class="drop-menu">
-                  <li><a title="profile.html" href="profile.html"><i class="icofont-user-alt-1"></i>Your Profile</a></li>
-                <li><a title="" href="#"><i class="icofont-question-circle"></i>Help</a></li>
-                <li><a title="" href="#"><i class="icofont-gear"></i>Setting</a></li>
-                <li><a class="dark-mod" title="" href="#"><i class="icofont-moon"></i>Dark Mode</a></li>
-                <li><a title="" href="login-register.html" class="logout"><i class="icofont-logout"></i>Logout</a></li>
+                  <li><a title="profile.html" href="{{ route('profile.show') }}"><i class="icofont-user-alt-1"></i>My account</a></li>
+                <li><a title="" href="{{ route('help') }}"><i class="icofont-question-circle"></i>Help</a></li>
+                <li><a title="" href="{{ route('logout') }}" class="logout" onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();"><i class="icofont-logout"></i>Logout</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                        @csrf
+                    </form>
+                </li>
             </ul>
         </div>
         <div class="res-search">
@@ -48,7 +51,7 @@
         <ul class="web-elements">
             <li>
                 <div class="user-dp">
-                    <a href="profile-page2.html" title="">
+                    <a href="{{ route('profile.show') }}" title="">
                         <img src="{{ auth()->user()->profile_photo_url }}" alt="{{ auth()->user()->name }}">
                         <div class="name">
                             <h4>{{auth()->user()->name}}</h4>
@@ -63,16 +66,21 @@
                     </i>
                 </a>
                 <ul class="dropdown">
-                    <li><a href="profile.html" title=""><i class="icofont-user-alt-3"></i> Your Profile</a></li>
-                    <li><a href="add-new-course.html" title=""><i class="icofont-plus"></i> New Question</a></li>
+                    <li><a href="{{ route('profile.show') }}" title=""><i class="icofont-user-alt-3"></i> My Account</a></li>
+                    <li><a href="{{ route('create.quiz') }}" title=""><i class="icofont-plus"></i> Create Quiz</a></li>
                     <li><a class="invite-new" href="#" title=""><i class="icofont-brand-slideshare"></i> Invite Collegue</a></li>
-                    <li><a href="pay-out.html" title=""><i class="icofont-price"></i> Payout</a></li>
-                    <li><a href="price-plan.html" title=""><i class="icofont-flash"></i> Upgrade</a></li>
-                    <li><a href="help-faq.html" title=""><i class="icofont-question-circle"></i> Help</a></li>
-                    <li><a href="settings.html" title=""><i class="icofont-gear"></i> Setting</a></li>
-                    <li><a href="privacy-n-policy.html" title=""><i class="icofont-notepad"></i> Privacy</a></li>
+                    <li><a href="#" title=""><i class="icofont-price"></i> Payout</a></li>
+                    <li><a href="{{route('price.plans')}}" title=""><i class="icofont-flash"></i> Upgrade</a></li>
+                    <li><a href="{{ route('help') }}" title=""><i class="icofont-question-circle"></i> Help</a></li>
+                    <li><a href="#" title=""><i class="icofont-gear"></i> Setting</a></li>
+                    <li><a href="{{ route('policy.show') }}" title=""><i class="icofont-notepad"></i> Privacy</a></li>
                     <li><a class="dark-mod" title="" href="#"><i class="icofont-moon"></i> Dark Mode</a></li>
-                    <li class="logout"><a href="sign-in.html" title=""><i class="icofont-power"></i> Logout</a></li>
+                    <li class="logout"><a href="{{ route('logout') }}" title="" onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();"><i class="icofont-power"></i> Logout</a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                            @csrf
+                        </form>
+                    </li>
                 </ul>
             </li>
         </ul>
@@ -89,16 +97,12 @@
                     <svg id="menu-btn" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></i>
                 </div>
                 <div class="page-title">
-                    <h4>Dashboard</h4>
+                    <h4>Menu</h4>
                 </div>
-                @if(Session::has('message'))
-                    <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
-                @endif
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6">
                 <ul class="breadcrumb">
-                    <li><a href="#" title="">Home</a></li>
-                    <li><a href="#" title="">Dashboard</a></li>
+                    <li><a href="{{ route('teams.show', Auth::user()->currentTeam->id) }}" title="">Manage Teams</a></li>
                 </ul>
             </div>
         </div>

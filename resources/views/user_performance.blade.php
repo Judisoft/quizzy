@@ -16,7 +16,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="panel-content">
-                <div class="p-3 high-opacity text-center" style="background: url(https://assets-global.website-files.com/5dbb30f00775d4c32191a4df/5dc8854311520e2e89ee0c51_path-5185_2.svg) no-repeat; background-size:100% 500px;">
+                <div class="p-3 high-opacity text-center" style="background-color:#088dcd; background-size:100% 500px;">
                     <img src="{{ $user->profile_photo_url }}" class="rounded-circle" alt="{{ $user->name }}">
                     <h2 class="main-title text-light">{{ $user->name }}</h2>   
                 </div>          

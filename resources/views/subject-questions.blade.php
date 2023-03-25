@@ -3,21 +3,18 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="panel-content">
-                <h4 class="main-title">Select Subject</h4>
+                <h2 class="main-title">Select Subject</h2>
                 <div class="row merged20">
                     @foreach($subjects as $subject)
                         <div class="col-lg-4 col-md-4 col-sm-4 mb-4">
-                            <div class="d-widget d-widget-action">
-                                <div class="d-widget-title">
-                                    <h5>{{$subject->title}}</h5>
+                            <a class="h5" href="{{ route('questions', $subject->id) }}">
+                                <div class="subjects">
+                                    <div class="d-widget border border-dark bg-transparent shadow-none">
+                                        <i class="icofont-arrow-right h2 px-2 pt-2"></i>
+                                        {{$subject->title}}
+                                    </div>
+                                </a>
                                 </div>
-                                <div class="d-widget-content">
-                                    <span class="realtime-ico pulse"></span>
-                                    <h6><a href="{{ route('questions', $subject->id) }}">view questions</a></h6>
-                                    <h5>{{ $subject->questions->count() }}</h5>
-                                    <i class="icofont-light-bulb"></i>  
-                                </div>
-                            </div>
                         </div>
                     @endforeach
                 </div>

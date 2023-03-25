@@ -77,7 +77,7 @@
 			</div>
 			<ul>
 				<li><a href="{{ route('plans') }}" title="" target="_target">Plans</a></li>
-				<li><a href="https://help.studentportal-cm.com" title="">contact</a></li>
+				<li><a href="{{ route('contact') }}" title="">contact</a></li>
 				<li><a href="{{ route('help') }}" title="">help center</a></li>
 				@if(Auth::guest())
 					<li><a href="{{route('register')}}" title="">Sign Up</a></li>
