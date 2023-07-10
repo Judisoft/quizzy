@@ -597,7 +597,71 @@
 			</div>
 		</div>
 	</section>
-
+	<section>
+		<div class="gap no-top bg-light">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="title">
+							<h1>Meet Our Amazing Team!</h1>
+							<p>We embrace diversity to serve better.</p>
+						</div>
+					</div>
+					<div class="col-lg-12">
+						<div class="row merged20">
+							<div class="friends" >
+								<div class="row merged-10 col-xs-6">
+									<div class="col-lg-4 col-md-4 col-sm-6">
+										<div class="friendz">
+											<figure><img src="{{ asset('images/resources/team/jude.jpg') }}" alt="Kum Jude Bama"></figure>
+											<span><a href="#" title="">Kum J. Bama</a></span>
+											<ins>Software Engineer</ins>
+											<a href="#" title="" data-ripple=""><i class="icofont-twitter"></i> Say Hi on twitter</a>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-4 col-sm-6">
+										<div class="friendz">
+											<figure><img src="{{ asset('images/resources/team/berty.jpg') }}" alt=""></figure>
+											<span><a href="#" title="">Kisevi Berty</a></span>
+											<ins>Biochemist</ins>
+											<a href="#" title="" data-ripple=""><i class="icofont-twitter"></i> Say Hi on twitter</a>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-4 col-sm-6">
+										<div class="friendz">
+											<figure><img src="{{ asset('images/resources/team/ayako.jpg') }}" alt="Ayako Endali"></figure>
+											<span><a href="#" title="">Ayako Endaly</a></span>
+											<ins>Process Engineer</ins>
+											<a href="#" title="" data-ripple=""><i class="icofont-twitter"></i> Say Hi on twitter</a>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-4 col-sm-6">
+										<div class="friendz">
+											<figure><img src="{{ asset('images/resources/team/francis.jpg') }}" alt=""></figure>
+											<span><a href="#" title="">Francis Y. Beri</a></span>
+											<ins>Software Engineer</ins>
+											<a href="#" title="" data-ripple=""><i class="icofont-twitter"></i> Say Hi on twitter</a>
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-4 col-sm-6">
+										<div class="friendz">
+											<figure><img src="{{ asset('images/resources/team/godwill.jpg') }}" alt="Asangawa Godwill" style="height:150px;"></figure>
+											<span><a href="#" title="">Asangawa Godwill</a></span>
+											<ins>Civil Engineer</ins>
+											<a href="#" title="" data-ripple=""><i class="icofont-twitter"></i> Say Hi on twitter</a>
+										</div>
+									</div>
+									<div class="col-lg-12">
+										<div class="sp sp-bars"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 	<section>
 		<div class="gap">
 			<div class="container">
@@ -630,7 +694,7 @@
 		</div>
 	</section>
 	@include('layouts.frontend.footer')
-	<div class="auto-popup">
+	{{-- <div class="auto-popup">
 		<div class="text-center"><figure><img src="images/resources/experience.webp" alt=""></figure></div>
 		<div class="popup-innner">
 			<div class="popup-head">
@@ -646,7 +710,7 @@
 				</form>
 			</div>
 		</div>
-	</div> <!-- auto popup --> 
+	</div> <!-- auto popup -->  --}}
 </div>
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script src="js/main.min.js"></script>

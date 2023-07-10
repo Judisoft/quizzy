@@ -2655,10 +2655,8 @@ ul.welcome-caro li.welcome-box figure img {
     width: 100%;
 }
 .friendz {
-    border: 1px solid #eaeaea;
-    border-radius: 10px;
     margin-bottom: 20px;
-    padding: 15px;
+    padding: 5px;
 	display: inline-block;
     text-align: center;
     width: 100%;
@@ -2667,12 +2665,13 @@ ul.welcome-caro li.welcome-box figure img {
 .friendz figure img{
     border: 2px solid #eee;
     border-radius: 10px;
-	max-width: 80px;
+	max-width: 150px;
 }
 .suggested-caro li span,
 .friendz span{
     display: inline-block;
-    font-weight: 500;
+    font-weight: 600;
+    font-size: 18px;
     width: 100%;
 }
 .suggested-caro li ins,
