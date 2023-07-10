@@ -24,4 +24,4 @@
         </fieldset>
     </div> 
 @endforeach
-<div class="text-right p-5 ml-3 mb-3"> {{ $questions->links() }} </div>
+<div class="text-right p-5 ml-3 mb-3"> {{ $questions->links('pagination::bootstrap-4') }} </div>

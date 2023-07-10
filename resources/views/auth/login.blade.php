@@ -2,7 +2,6 @@
     <x-jet-authentication-card>
         <x-slot name="logo">
             <x-jet-authentication-card-logo />
-            
         </x-slot>
 
         <x-jet-validation-errors class="mb-4" />
@@ -11,20 +10,25 @@
                 {{ session('status') }}
             </div>
         @endif
+        @if (session('message'))
+            <div class="p-2 rounded-md" style="border:1px solid rgb(248 113 113);background-color:rgb(254 226 226);">
+                <div class="mb-4 font-medium pt-4 text-center text-md text-red-600">
+                    {{ session('message') }}
+                </div>
+            </div>
+        @endif
 
         <form method="POST" action="{{ route('login') }}">
             @csrf
-            <div class="text-right">
-                <h1 class="font-bold">Login</h1>
+            <div class="text-left py-2">
+                <h1 class="py-2" style="font-size:20px;font-weight:700;">Log in to Quizzy</h1>
             </div>
             <div>
-                <x-jet-label for="email" value="{{ __('Email') }}" />
-                <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
+                <x-jet-input id="email" class="block mt-1 w-full" type="email" placeholder="Email e.g email@email.com" name="email" :value="old('email')" required autofocus />
             </div>
 
             <div class="mt-4">
-                <x-jet-label for="password" value="{{ __('Password') }}" />
-                <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
+                <x-jet-input id="password" class="block mt-1 w-full" placeholder="Password" type="password" name="password" required autocomplete="current-password" />
             </div>
 
             <div class="block mt-4">

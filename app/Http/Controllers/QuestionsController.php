@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use App\Models\Question;
 use App\Models\Subject;
 use App\Models\Quiz;
+use App\Models\QuizQuestion;
+use Auth;
 
 class QuestionsController extends Controller
 {
@@ -19,7 +22,7 @@ class QuestionsController extends Controller
 
     public function subjectQuestions($subject_id, Request $request) 
     {
-        $questions = Question::where('subject_id', $subject_id)->orderBy('subject_id')->simplePaginate(25);
+        $questions = Question::where('subject_id', $subject_id)->orderBy('subject_id')->paginate(25);
         $user_quizzes = Quiz::where('user_id', auth()->user()->id)->orderBy('id', 'desc')->get();
         $subject = Subject::find($subject_id);
         
@@ -100,8 +103,56 @@ class QuestionsController extends Controller
         
     }
 
-    public function createQuizQuestions(Request $request )
+    public function questions()
     {
-        dd($request);
+        $questions = Question::where('user_id', Auth::user()->id)->Paginate(50);
+        $subjects = Subject::all();
+        return view('question-bank', compact('questions', 'subjects'));
     }
+
+    public function quizQuestions(Request $request) 
+    {
+        
+        $validator = Validator::make($request->all(), [
+            'quiz_title' => 'required|unique:quizzes,title',
+            'subject_id' => 'required',
+            'question' => 'required'
+        ],
+        [
+            'quiz_title.required' => 'Quiz title is required',
+            'subject_id.required' => 'Subject is required',
+            'question.required' => 'You must select atleast one question'
+        ]);
+
+        if ($validator->fails())
+        {
+            $errors = $validator->errors();
+            return back()->withErrors($errors);
+    
+        } else {
+
+            $quiz = new Quiz;
+            $quiz->title = $request->quiz_title;
+            $quiz->slug = Str::slug($request->title, '-');
+            $quiz->subject_id = $request->input('subject_id');
+            $quiz->user_id = Auth::user()->id;
+            $quiz->team_id = Auth::user()->current_team_id;
+
+            $quiz->save();
+
+            for($i = 0; $i < count($request->question); $i++)
+            {
+                //save quiz questions
+                $quiz_question = new QuizQuestion;
+                $quiz_question->quiz_id = $quiz->id;
+                $quiz_question->question_id = $request->question[$i];
+
+                $quiz_question->save();
+            }
+            
+            return back()->with('success', 'Quiz created successfully');
+        }
+
+    }
+
 }

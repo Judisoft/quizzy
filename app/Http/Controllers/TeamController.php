@@ -13,8 +13,8 @@ class TeamController extends Controller
 {
     public function getTeams()
     {
-               
-        return view('my-teams');
+        $invitations = TeamInvitation::where('email', Auth::user()->email)->get();
+        return view('my-teams', compact('invitations'));
     }
 
     public function getTeamDetail($id)

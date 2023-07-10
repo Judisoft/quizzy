@@ -52,7 +52,7 @@
   content: "";
   width: 0;
   height: 2px;
-  background: #088dcd;
+  background: #4267B2;
   position: absolute;
   left: -68px;
   top: 5px;
@@ -60,11 +60,11 @@
 }
 
 .wizard > .steps li.first a {
-  background: #088dcd;
+  background: #4267B2;
 }
 
 .wizard > .steps li.checked a {
-  background: #088dcd;
+  background: #4267B2;
 }
 
 .wizard > .steps li.checked a:after {
@@ -126,7 +126,7 @@
   background: #cfc7b8;
 }
 .actions li:last-child a {
-  background: #088dcd;
+  background: #4267B2;
   color: #fff;
 }
 
@@ -140,7 +140,7 @@
 }
 
 .actions li[aria-disabled="false"] ~ li a {
-  background: #088dcd;
+  background: #4267B2;
   color: #fff;
 }
 

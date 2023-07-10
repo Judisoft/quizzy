@@ -1,22 +1,21 @@
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=Pacifico&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@300&family=Josefin+Sans:wght@700&family=Libre+Baskerville:wght@700&family=Pacifico&family=Rowdies:wght@300&display=swap');
+</style>
 <div class="responsive-header">
-    <div class="res-logo">Logo</div>
-    
-    <div class="user-avatar mobile">
-        <a href="{{ route('profile.show') }}" title="View Profile"><img src="{{ auth()->user()->profile_photo_url }}" alt="{{ auth()->user()->name }}"></a>
-        <div class="name">
-            <h4>Saim Turan</h4>
-            <span>Antalaya, Turky</span>
-        </div>
+    <div class="res-logo">
+        <button style="font-family: 'Libre Baskerville', serif;height:45px;width:45px;padding:2px;background-color: #4267B2;color:#fff;font-size: 28px;border-radius: 5px;border:#e5e7eb;">Q</button>
+        <a href="{{ route('home') }}" class="px-2" style="font-family: 'Rowdies', sans-serif;color: #4267B2;font-size: 26px;">
+            Quizzy
+        </a>
     </div>
     <div class="right-compact">
         <div class="menu-area">
             <div id="nav-icon3">
-                <i>
-                    <svg class="feather feather-grid" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="18" width="18" xmlns="http://www.w3.org/2000/svg"><rect height="7" width="7" y="3" x="3"/><rect height="7" width="7" y="3" x="14"/><rect height="7" width="7" y="14" x="14"/><rect height="7" width="7" y="14" x="3"/></svg>
-                    </i>
+                <i class=""><svg id="menu-btn" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></i>
             </div>
             <ul class="drop-menu">
-                  <li><a title="profile.html" href="{{ route('profile.show') }}"><i class="icofont-user-alt-1"></i>My account</a></li>
+                <li><a title="profile.html" href="{{ route('profile.show') }}"><i class="icofont-user"></i>My account</a></li>
                 <li><a title="" href="{{ route('help') }}"><i class="icofont-question-circle"></i>Help</a></li>
                 <li><a title="" href="{{ route('logout') }}" class="logout" onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();"><i class="icofont-logout"></i>Logout</a>
@@ -28,23 +27,28 @@
         </div>
         <div class="res-search">
             <span><i>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></i></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></i></span>
         </div>
     </div>
-    <div class="restop-search">
-        <span class="hide-search"><i class="icofont-close-circled"></i></span>
-        <form method="post">
-            <input type="text" placeholder="Search...">
+    <div class="restop-search pt-2">
+        <span class="hide-search pt-1"><i class="icofont-close"></i></span>
+        <form>
+            <input type="text" placeholder="Search">
         </form>
     </div>
 </div><!-- responsive header -->
 
 <header class="">
     <div class="topbar stick">
-        <div class="logo"><span>Logo</span></div>
+        <div class="logo">
+            <button style="font-family: 'Libre Baskerville', serif;height:45px;width:45px;padding:2px;background-color: #4267B2;color:#fff;font-size: 28px;border-radius: 5px;border:#e5e7eb;">Q</button>
+            <a href="{{ route('home') }}" class="px-2" style="font-family: 'Rowdies', sans-serif;color: #4267B2;font-size: 26px;">
+                Quizzy
+            </a>
+        </div>
         <div class="searches">
-            <form method="post">
-                <input type="text" placeholder="Search...">
+            <form method="#">
+                <input type="text" placeholder="Search">
                 <button type="submit"><i class="icofont-search"></i></button>
             </form>
         </div>
@@ -68,13 +72,10 @@
                 <ul class="dropdown">
                     <li><a href="{{ route('profile.show') }}" title=""><i class="icofont-user-alt-3"></i> My Account</a></li>
                     <li><a href="{{ route('create.quiz') }}" title=""><i class="icofont-plus"></i> Create Quiz</a></li>
-                    <li><a class="invite-new" href="#" title=""><i class="icofont-brand-slideshare"></i> Invite Collegue</a></li>
-                    <li><a href="#" title=""><i class="icofont-price"></i> Payout</a></li>
-                    <li><a href="{{route('price.plans')}}" title=""><i class="icofont-flash"></i> Upgrade</a></li>
+                    <li><a href="{{route('plans')}}" title=""><i class="icofont-flash"></i> Upgrade</a></li>
                     <li><a href="{{ route('help') }}" title=""><i class="icofont-question-circle"></i> Help</a></li>
                     <li><a href="#" title=""><i class="icofont-gear"></i> Setting</a></li>
                     <li><a href="{{ route('policy.show') }}" title=""><i class="icofont-notepad"></i> Privacy</a></li>
-                    <li><a class="dark-mod" title="" href="#"><i class="icofont-moon"></i> Dark Mode</a></li>
                     <li class="logout"><a href="{{ route('logout') }}" title="" onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();"><i class="icofont-power"></i> Logout</a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST">
@@ -88,23 +89,70 @@
     
 </header><!-- header -->
 
-<div class="top-sub-bar">
+<div class="top-sub-bar border-bottom pt-2" style="background-color:#e5e5e5;">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col">
                 <div class="menu-btn">
-                    <i class="">
-                    <svg id="menu-btn" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></i>
-                </div>
-                <div class="page-title">
-                    <h4>Menu</h4>
+                    <img src="{{ asset('images/resources/m1.png') }}" class="menu-img" alt="">
                 </div>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="">
                 <ul class="breadcrumb">
-                    <li><a href="{{ route('teams.show', Auth::user()->currentTeam->id) }}" title="">Manage Teams</a></li>
+                    <li>
+                        <a href="{{ route('dashboard') }}" title="" class="px-2">
+                            <img src="{{ asset('images/resources/m7.png') }}" class="menu-img" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('create.question') }}" title="Questions" class="px-2">
+                            <img src="{{ asset('images/resources/m8.png') }}" class="menu-img" alt="Add question">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('create.quiz') }}" title="" class="px-2">
+                            <img src="{{ asset('images/resources/m4.png') }}" class="menu-img" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('all.questions') }}" title="" class="px-2">
+                            <img src="{{ asset('images/resources/m11.png') }}" class="menu-img" alt="Questions">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('all.quizzes') }}" title="" class="px-2">
+                            <img src="{{ asset('images/resources/m6.png') }}" class="menu-img" alt="Questions">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('profile.show') }}" title="Questions" class="px-2">
+                            <img src="{{ asset('images/resources/m3.png') }}" class="menu-img" alt="User profile">
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
+        <div class="mx-auto mt-2 mb-2">
+            @if(Session::has('message'))
+            <div class="rounded" style="background-color: #bce0ef; border:1px solid #4267B2;" uk-alert>
+                <a class="uk-alert-close" uk-close></a>
+                <p class="text-dark">{{ Session::get('message') }}</p>
+            </div>
+            @endif
+            
+            @if(Session::has('error'))
+            <div class="rounded" style="border:1px solid rgb(248 113 113);background-color:rgb(254 226 226);" uk-alert>
+                <a class="uk-alert-close" uk-close></a>
+                <p class="text-danger">{{ Session::get('error') }}</p>
+            </div>
+            @endif
+            @if(Session::has('success'))
+            <div class="rounded" style="border:1px solid #36b37e;background-color: #d7f0e5;" uk-alert>
+                <a class="uk-alert-close" uk-close></a>
+                <p style="color:#36b37e;font-weight:500;">{{ Session::get('success') }}</p>
+            </div>
+            @endif
+        </div>
     </div>	
-</div><!-- top sub bar -->
+</div>
+<!-- top sub bar -->

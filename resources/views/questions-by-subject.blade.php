@@ -55,15 +55,40 @@
                             </div>
                             <div class="d-widget-content">
                                 <div class="d-widget-title">
-                                    <p class="main-title fw-600">
-                                        <a href="{{ route('single.question', [ $question->subject_id, $question->id]) }}">{{ $key + 1 . ')'}}  {!! $question->content !!}</a>
-                                    </p>
+                                    <div class="uk-flex flex-row">
+                                        <div class="p-2">
+                                            <p class="main-title px-2 uk-underline">{{'Question' .($key + 1) . ':'  }}</p> <br>
+                                        </div>
+                                        <div class="p-2">
+                                            {!! $question->content !!}
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="uk-flex uk-flex-column">
-                                    <div class="p-3"><label><input class="uk-radio" name="choice" type="radio" value="A" onclick="verifyAnswer('{{ ($question->answer) }}')"> {!! $question->A !!}</label></div>
-                                    <div class="p-3"><label><input class="uk-radio" name="choice" type="radio" value="B" onclick="verifyAnswer('{{ ($question->answer) }}')"> {!! $question->B !!}</label></div>
-                                    <div class="p-3"><label><input class="uk-radio" name="choice" type="radio" value="C" onclick="verifyAnswer('{{ ($question->answer) }}')"> {!! $question->C !!}</label></div>
-                                    <div class="p-3"><label><input class="uk-radio" name="choice" type="radio" value="D" onclick="verifyAnswer('{{ ($question->answer) }}')"> {!! $question->D !!}</label></div>
+                                <div class="tabcontent px-5">
+                                    <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid p-3 border">
+                                        <div class="uk-grid-small uk-text-center" uk-grid>
+                                            <div onclick="verifyAnswer('A', '{{ $question->answer }}')" class="option"></div>
+                                            <label class="uk-flex-right py-1">{!! $question->A !!}</label>
+                                        </div>
+                                    </div>
+                                    <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid p-3 border">
+                                        <div class="uk-grid-small uk-text-center" uk-grid>
+                                            <div onclick="verifyAnswer('B', '{{ $question->answer }}')" class="option"></div>
+                                            <label class="uk-flex-right py-1">{!! $question->B !!}</label>
+                                        </div>
+                                    </div>
+                                    <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid p-3 border">
+                                        <div class="uk-grid-small uk-text-center" uk-grid>
+                                            <div onclick="verifyAnswer('C', '{{ $question->answer }}')" class="option"></div>
+                                            <label class="uk-flex-right py-1">{!! $question->C !!}</label>
+                                        </div>
+                                    </div>
+                                    <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid p-3 border">
+                                        <div class="uk-grid-small uk-text-center" uk-grid>
+                                            <div onclick="verifyAnswer('D', '{{ $question->answer }}')" class="option"></div>
+                                            <label class="uk-flex-right py-1">{!! $question->D !!}</label>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div id="renderAnswer"></div>
                             </div>
@@ -72,29 +97,29 @@
                 @empty
                     <tr>No question yet</tr>
                 @endforelse
-                <div> {{ $questions->links() }} </div>
+                <div> {{ $questions->links('pagination::bootstrap-4') }} </div>
             </div>
             {{-- modal for correct answer --}}
-            <button class="button uk-button-default uk-margin-small-right" type="button" uk-toggle="target: #correct-answer" id="btnToggle" style="display:none">Open</button>
-            <div id="correct-answer" class="uk-flex-top" uk-modal>
-                <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical opacity-3">
+            <button class="button uk-button-default uk-margin-small-right" type="button" uk-toggle="target: #correct-answer" id="btnToggle" style="display:none"></button>
+            <div id="correct-answer" class="uk-flex-top bg-light" uk-modal>
+                <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
                     <button class="uk-modal-close-default" type="button" uk-close></button>
                     <div class="text-center">
-                        <img src="{{ asset('images/resources/correct.png') }}" style="height:75px;width:75px;">
-                        <h4 class="p-5">Correct Answer</h4>
+                        <img src="{{ asset('images/resources/right-decision.gif') }}" style="height:75px;width:75px;">
+                        <h4 class="p-5 fw-700">Correct Answer</h4>
                         <p>Great Job {{ Auth::user()->name }}!</p>
                     </div>
                 </div>
             </div>
             {{-- Modal for wrong answer --}}
             <button class="button uk-button-default uk-margin-small-right" type="button" uk-toggle="target: #wrong-answer" id="btnToggleWrong" style="display:none"></button>
-            <div id="wrong-answer" class="uk-flex-top" uk-modal>
-                <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical opacity-3">
+            <div id="wrong-answer" class="uk-flex-top bg-light" uk-modal>
+                <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
                     <button class="uk-modal-close-default" type="button" uk-close></button>
                     <div class="text-center">
-                        <img src="{{ asset('images/resources/cancel.png') }}" style="height:75px;width:75px;">
-                        <h4 class="p-5">Wrong Answer</h4>
-                        <p>Try again</p>
+                        <img src="{{ asset('images/resources/wrong-decision.gif') }}" style="height:75px;width:75px;">
+                        <h4 class="p-5 fw-700">Wrong Answer</h4>
+                        <button type="button" class="button light uk-modal-close" >Try again</button>
                     </div>
                 </div>
             </div>
@@ -114,6 +139,7 @@
     <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
         <button class="uk-modal-close-default" type="button" uk-close></button>
         <div class="container mt-4">
+            <h2 class="text-center fw-500 p-2">Share question</h2>
             <img src="{{ asset('images/resources/share.svg') }}">
             <div class="mt-3 text-center">{!! $share_btn !!}</div>
         </div>        
@@ -148,7 +174,7 @@
            
         }
         sorted.innerHTML = ""
-        data.map(q => {
+        data.map((q, key) => {
             sorted.innerHTML +=`<div class="inline-block p-2">
                                     <h5 class="pb-3"><span class="text-primary text-lowercase">${q.level.name} </span> <i class="icofont-curved-right h5"></i> 
                                     <span class="text-primary text-lowercase">${q.subject.title} </span> <i class="icofont-curved-right h5"></i>
@@ -172,19 +198,40 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="d-widget-content">
-                                            <div class="d-widget-title">
-                                                <h4 class="main-title">
-                                                    <p class="main-title fw-600">
-                                                        <a href="/questions/${q.subject.id}/${q.id}">${q.content}</a>
-                                                    </p>
-                                                </h4>
+                                        <div class="d-widget-title">
+                                            <div class="uk-flex flex-row">
+                                                <div class="p-2">
+                                                    <p class="main-title px-2 uk-underline">Question ${key + 1}:</p>
+                                                </div>
+                                                <div class="p-2">
+                                                    ${q.content}
+                                                </div>
                                             </div>
-                                            <div class="uk-flex uk-flex-column">
-                                                <div class="p-3"><label><input class="uk-radio" name="choice" type="radio" value="A" onclick="verifyAnswer('${q.answer}')"> ${q.A}</label></div>
-                                                <div class="p-3"><label><input class="uk-radio" name="choice" type="radio" value="B" onclick="verifyAnswer('${q.answer}')"> ${q.B}</label></div>
-                                                <div class="p-3"><label><input class="uk-radio" name="choice" type="radio" value="C" onclick="verifyAnswer('${q.answer}')"> ${q.C}</label></div>
-                                                <div class="p-3"><label><input class="uk-radio" name="choice" type="radio" value="D" onclick="verifyAnswer('${q.answer}')"> ${q.D}</label></div>
+                                        </div>
+                                        <div class="tabcontent px-5">
+                                            <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid p-3 border">
+                                                <div class="uk-grid-small uk-text-center" uk-grid>
+                                                    <div onclick="verifyAnswer('A', '${q.answer}')" class="option"></div>
+                                                    <label class="uk-flex-right py-1">${q.A}</label>
+                                                </div>
+                                            </div>
+                                            <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid p-3 border">
+                                                <div class="uk-grid-small uk-text-center" uk-grid>
+                                                    <div onclick="verifyAnswer('B', '${q.answer}')" class="option"></div>
+                                                    <label class="uk-flex-right py-1">${q.B}</label>
+                                                </div>
+                                            </div>
+                                            <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid p-3 border">
+                                                <div class="uk-grid-small uk-text-center" uk-grid>
+                                                    <div onclick="verifyAnswer('C', '${q.answer}')" class="option"></div>
+                                                    <label class="uk-flex-right py-1">${q.C}</label>
+                                                </div>
+                                            </div>
+                                            <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid p-3 border">
+                                                <div class="uk-grid-small uk-text-center" uk-grid>
+                                                    <div onclick="verifyAnswer('D', '${q.answer}')" class="option"></div>
+                                                    <label class="uk-flex-right py-1">${q.D}</label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -238,9 +285,8 @@
     }
 
 
-    function verifyAnswer(answer) {
-        
-        let userAnswer = document.querySelector('input[name="choice"]:checked').value
+    function verifyAnswer(userAnswer, answer) {
+       
         if(userAnswer === answer) 
         {
             document.getElementById("btnToggle").click()

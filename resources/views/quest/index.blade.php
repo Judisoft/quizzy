@@ -2,291 +2,67 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-12">
-            <div class="panel-content">                
+            <div class="panel-content">
+                <div class="title-content">
+                    <h2 class="main-title fw-700">My questions</h2>
+                    <form method="post" class="search-box float-right">
+                        <input type="text" placeholder="search">
+                        <button type="submit"><i class="icofont-search"></i></button>
+                    </form>
+                </div>	                
                 <div class="row merged20 mb-4">
                     <div class="col-lg-12">
-                        <div class="d-widget">
+                        <div class="ml-2">
                             <div class="d-widget-title">
-                                <h5>My questions</h5>
+                                <a class="text-primary text-decoration-underline" href="{{ route('all.questions') }}">Go to question bank</a>
+                                <a href="{{ route('create.question') }}"><button class="button primary circle float-right">add question</button></a>
                             </div>
                             <table class="table-default manage-user table table-striped table-responsive-md">
-                                <thead>
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>Question</th>
-                                        <th>Subject</th>
-                                        <th>Topic</th>
-                                        <th>Hide/Show</th>
-                                        <th>Del/Edit</th>
-                                    </tr>
-                                </thead>
+                                @if($user_questions->count() > 0)
+                                    <thead>
+                                        <tr>
+                                            <th>Date created</th>
+                                            <th>Question</th>
+                                            <th>Subject</th>
+                                            <th>Topic</th>
+                                            <th>Del/Edit</th>
+                                        </tr>
+                                    </thead>
+                                @endif
                                 <tbody>
+                                    @forelse ($user_questions as $question)
                                     <tr>
                                         <td>
                                             <figure><img alt="" src="images/resources/user.png"></figure>
-                                            <h5>Maria K.</h5>
+                                            <h5>{{ $question->created_at }}</h5>
                                         </td>
-                                        <td class="productss"><a href="#" title=""><img src="images/resources/course-1.jpg" alt=""> Html Basics Book</a></td>
-                                        <td>
-                                            <div class="rating-stars">
-                                                <span>96%</span>
-                                                <ul>
-                                                    <li><i class="icofont-star"></i></li>
-                                                    <li><i class="icofont-star"></i></li>
-                                                    <li><i class="icofont-star"></i></li>
-                                                    <li><i class="icofont-star"></i></li>
-                                                    <li><i class="icofont-star"></i></li>
-                                                  </ul>
-                                              </div>
-                                        </td>
+                                        <td class="productss"><a href="{{ route('show.question', $question->id) }}" title="">{!! $question->content !!}</a></td>
+                                        <td>{{ $question->subject->title }}</td>
                                         
-                                        <td><a href="#" title="">View All</a></td>
+                                        <td><a href="{{ route('topic.questions', $question->topic) }}" class="text-capitalize">{{ $question->topic->topic }}</a></td>
                                         <td>
-                                            <div class="switch-btn">
-                                                <input type="checkbox" hidden="hidden" id="switch01">
-                                                <label class="switch" for="switch01"></label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="actions-btn">
-                                                <span class="iconbox button soft-primary"><i class="icofont-pen-alt-1"></i></span>
-                                                <span class="iconbox button soft-danger"><i class="icofont-trash"></i></span>
+                                            <div class="uk-flex justify-content-around">
+                                                <div class="p-1">
+                                                    <a href="{{ route('edit.question', $question->id) }}" class="button small soft-primary"><i class="icofont-pen-alt-1"></i></a>
+                                                </div>
+                                                <div class="p-1">
+                                                    <form action="{{ route('delete.question', $question->id) }}" method="POST">
+                                                        @method('DELETE')
+                                                        @csrf
+                                                        <button type="sumit" class="button small soft-danger" onclick='return confirm("Are you sure you want to delete this question?")'><i class="icofont-trash"></i></button>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            <figure><img alt="" src="images/resources/user2.jpg"></figure>
-                                            <h5>Dianne Aceron</h5>
-                                        </td>
-                                        <td><a href="#" title=""><img src="images/resources/course-2.jpg" alt=""> VU.Js script Book</a></td>
-                                        <td>
-                                            <div class="rating-stars">
-                                                <span>90%</span>
-                                                <ul>
-                                                    <li><i class="icofont-star"></i></li>
-                                                    <li><i class="icofont-star"></i></li>
-                                                    <li><i class="icofont-star"></i></li>
-                                                    <li><i class="icofont-star"></i></li>
-                                                    <li><i class="icofont-star"></i></li>
-                                                  </ul>
-                                              </div>
-                                        </td>
-                                        
-                                        <td><a href="#" title="">View All</a></td>
-                                        <td>
-                                            <div class="switch-btn">
-                                                <input type="checkbox" hidden="hidden" id="switch02">
-                                                <label class="switch" for="switch02"></label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="actions-btn">
-                                                <span class="iconbox button soft-primary"><i class="icofont-pen-alt-1"></i></span>
-                                                <span class="iconbox button soft-danger"><i class="icofont-trash"></i></span>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <figure><img alt="" src="images/resources/user1.jpg"></figure>
-                                            <h5>Socrates Itumay</h5>
-                                        </td>
-                                        <td><a href="#" title=""><img src="images/resources/course-3.jpg" alt=""> Online Css3 Course</a></td>
-                                        <td>
-                                            <div class="rating-stars">
-                                                <span>85%</span>
-                                                <ul>
-                                                    <li><i class="icofont-star"></i></li>
-                                                    <li><i class="icofont-star"></i></li>
-                                                    <li><i class="icofont-star"></i></li>
-                                                    <li><i class="icofont-star"></i></li>
-                                                    <li><i class="icofont-star"></i></li>
-                                                  </ul>
-                                              </div>
-                                        </td>
-                                        
-                                        <td><a href="#" title="">View All</a></td>
-                                        <td>
-                                            <div class="switch-btn">
-                                                <input type="checkbox" hidden="hidden" id="switch03">
-                                                <label class="switch" for="switch03"></label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="actions-btn">
-                                                <span class="iconbox button soft-primary"><i class="icofont-pen-alt-1"></i></span>
-                                                <span class="iconbox button soft-danger"><i class="icofont-trash"></i></span>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <figure><img alt="" src="images/resources/user13.jpg"></figure>
-                                            <h5>Reynante Labares</h5>
-                                        </td>
-                                        <td><a href="#" title=""><img src="images/resources/course-4.jpg" alt=""> Online Course Basic HTML</a></td>
-                                        <td>
-                                            <div class="rating-stars">
-                                                <span>96%</span>
-                                                <ul>
-                                                    <li><i class="icofont-star"></i></li>
-                                                    <li><i class="icofont-star"></i></li>
-                                                    <li><i class="icofont-star"></i></li>
-                                                    <li><i class="icofont-star"></i></li>
-                                                    <li><i class="icofont-star"></i></li>
-                                                  </ul>
-                                              </div>
-                                        </td>
-                                        
-                                        <td><a href="#" title="">View All</a></td>
-                                        <td>
-                                            <div class="switch-btn">
-                                                <input type="checkbox" hidden="hidden" id="switch04">
-                                                <label class="switch" for="switch04"></label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="actions-btn">
-                                                <span class="iconbox button soft-primary"><i class="icofont-pen-alt-1"></i></span>
-                                                <span class="iconbox button soft-danger"><i class="icofont-trash"></i></span>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <figure><img alt="" src="images/resources/user20.jpg"></figure>
-                                            <h5>Katherine Sima</h5>
-                                        </td>
-                                        <td><a href="#" title=""><img src="images/resources/course-5.jpg" alt=""> PHP Advance Course</a></td>
-                                        <td>
-                                            <div class="rating-stars">
-                                                <span>96%</span>
-                                                <ul>
-                                                    <li><i class="icofont-star"></i></li>
-                                                    <li><i class="icofont-star"></i></li>
-                                                    <li><i class="icofont-star"></i></li>
-                                                    <li><i class="icofont-star"></i></li>
-                                                    <li><i class="icofont-star"></i></li>
-                                                  </ul>
-                                              </div>
-                                        </td>
-                                        
-                                        <td><a href="#" title="">View All</a></td>
-                                        <td>
-                                            <div class="switch-btn">
-                                                <input type="checkbox" hidden="hidden" id="switch05">
-                                                <label class="switch" for="switch05"></label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="actions-btn">
-                                                <span class="iconbox button soft-primary"><i class="icofont-pen-alt-1"></i></span>
-                                                <span class="iconbox button soft-danger"><i class="icofont-trash"></i></span>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <figure><img alt="" src="images/resources/userlist-2.jpg"></figure>
-                                            <h5>Evelyn Movera</h5>
-                                        </td>
-                                        <td><a href="#" title=""><img src="images/resources/course-6.jpg" alt=""> Advance Wp Book</a></td>
-                                        <td>
-                                            <div class="rating-stars">
-                                                <span>88%</span>
-                                                <ul>
-                                                    <li><i class="icofont-star"></i></li>
-                                                    <li><i class="icofont-star"></i></li>
-                                                    <li><i class="icofont-star"></i></li>
-                                                    <li><i class="icofont-star"></i></li>
-                                                    <li><i class="icofont-star"></i></li>
-                                                  </ul>
-                                              </div>
-                                        </td>
-                                        
-                                        <td><a href="#" title="">View All</a></td>
-                                        <td>
-                                            <div class="switch-btn">
-                                                <input type="checkbox" hidden="hidden" id="switch06">
-                                                <label class="switch" for="switch06"></label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="actions-btn">
-                                                <span class="iconbox button soft-primary"><i class="icofont-pen-alt-1"></i></span>
-                                                <span class="iconbox button soft-danger"><i class="icofont-trash"></i></span>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <figure><img alt="" src="images/resources/user7.jpg"></figure>
-                                            <h5>Frank J.</h5>
-                                        </td>
-                                        <td><a href="#" title=""><img src="images/resources/course-2.png" alt=""> Online Marketing</a></td>
-                                        <td>
-                                            <div class="rating-stars">
-                                                <span>96%</span>
-                                                <ul>
-                                                    <li><i class="icofont-star"></i></li>
-                                                    <li><i class="icofont-star"></i></li>
-                                                    <li><i class="icofont-star"></i></li>
-                                                    <li><i class="icofont-star"></i></li>
-                                                    <li><i class="icofont-star"></i></li>
-                                                  </ul>
-                                              </div>
-                                        </td>
-                                        
-                                        <td><a href="#" title="">View All</a></td>
-                                        <td>
-                                            <div class="switch-btn">
-                                                <input type="checkbox" hidden="hidden" id="switch07">
-                                                <label class="switch" for="switch07"></label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="actions-btn">
-                                                <span class="iconbox button soft-primary"><i class="icofont-pen-alt-1"></i></span>
-                                                <span class="iconbox button soft-danger"><i class="icofont-trash"></i></span>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <figure><img alt="" src="images/resources/user4.jpg"></figure>
-                                            <h5>Jackson will</h5>
-                                        </td>
-                                        <td><a href="#" title=""><img src="images/resources/course-1.jpg" alt=""> Advance PHP Book</a></td>
-                                        <td>
-                                            <div class="rating-stars">
-                                                <span>96%</span>
-                                                <ul>
-                                                    <li><i class="icofont-star"></i></li>
-                                                    <li><i class="icofont-star"></i></li>
-                                                    <li><i class="icofont-star"></i></li>
-                                                    <li><i class="icofont-star"></i></li>
-                                                    <li><i class="icofont-star"></i></li>
-                                                  </ul>
-                                              </div>
-                                        </td>
-                                        
-                                        <td><a href="#" title="">View All</a></td>
-                                        <td>
-                                            <div class="switch-btn">
-                                                <input type="checkbox" hidden="hidden" id="switch08">
-                                                <label class="switch" for="switch08"></label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="actions-btn">
-                                                <span class="iconbox button soft-primary"><i class="icofont-pen-alt-1"></i></span>
-                                                <span class="iconbox button soft-danger"><i class="icofont-trash"></i></span>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    @empty
+                                    <p class="text-center">You have no question yet</p>
+                                    @endforelse
                                 </tbody>
                             </table>
+                            <div class="text-center mt-4">
+                                {{ $user_questions->links('pagination::bootstrap-4') }}
+                            </div>
                         </div>
                     </div>
                 </div>

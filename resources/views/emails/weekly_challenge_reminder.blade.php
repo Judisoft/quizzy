@@ -4,11 +4,11 @@
 
 I hope you are well.
 
-Just a reminder about the upcoming Weekly challenge. <br>
+Just a reminder about this week's upcoming Weekly challenge tomorrow.
+As a reminder, this competition will be available tomorrow starting 00:00
+and ends at 11:59 pm. Feel free to take take it at anytime at your convenience.
+ <br>
 
-{{-- @component('mail::button', ['url' => ''])
-Button Text
-@endcomponent --}}
 
 Best regards,<br>
 Kum Jude <br>

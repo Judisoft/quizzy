@@ -9,6 +9,8 @@ use App\Models\Subject;
 use App\Models\Topic;
 use App\Models\User;
 use App\Models\Quiz;
+use App\Models\Week;
+use App\Models\Challenge;
 
 class Question extends Model
 {
@@ -24,7 +26,8 @@ class Question extends Model
                             'subject_id',
                             'topic_id',
                             'duration',
-                            'points'
+                            'points',
+                            'level_id'
                             ];
 
     public function level()
@@ -50,6 +53,11 @@ class Question extends Model
     public function quiz()
     {
         return $this->belongsToMany(Quiz::class, 'quiz_questions', 'quiz_id', 'question_id');
+    }
+
+    public function weeks()
+    {
+        return $this->belongsToMany(Week::class, 'week_questions', 'week_id', 'question_id');
     }
 
 }

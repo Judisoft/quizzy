@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\QuizScore;
 use App\Models\Quiz;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Auth;
+use Session;
 
 class EvaluationsController extends Controller
 {
@@ -15,7 +18,7 @@ class EvaluationsController extends Controller
      */
     public function index()
     {
-        $evaluations = QuizScore::where('user_id', auth()->user()->id)->with('quiz')->orderBy('id', 'DESC')->simplePaginate(10);
+        $evaluations = QuizScore::where('user_id', auth()->user()->id)->with('quiz')->orderBy('id', 'DESC')->paginate(25);
 
         return view('evaluations', compact('evaluations'));
     }
@@ -25,9 +28,30 @@ class EvaluationsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function createEvaluation()
     {
-        //
+        $user_quizzes = Quiz::where('user_id', Auth::user()->id)->get();
+        return view('create-evaluation', compact('user_quizzes'));
+    }
+
+    public function postEvaluation(Request $request) {
+        $quiz = Quiz::find($request->id);
+        if($quiz->attempts_permitted != 1) {
+            $quiz->attempts_permitted = 1;
+            $quiz->update();
+            return response()->json([
+                'success' => 'Quiz set as evaluation'
+            ]);
+        } else {
+            $quiz->attempts_permitted = 3; // Every quiz is default to be taken 3 times
+            $quiz->update();
+
+            return response()->json([
+                'success' => 'Quiz unset as evaluation'
+            ]);
+        }
+        
+            
     }
 
     /**
@@ -84,8 +108,8 @@ class EvaluationsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroyEvaluation($id)
     {
-        //
+        // destroy
     }
 }

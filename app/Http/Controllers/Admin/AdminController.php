@@ -24,7 +24,7 @@ class AdminController extends Controller
         $premium_users = User::where('is_premium', 1)->get();
         $free_trial_users = User::where('is_premium', 0)->get();
         $unverified_accounts = User::where('email_verified_at', '<>', null)->get();
-        $users_status = Payment::simplePaginate(25);
+        $users_status = Payment::paginate(25);
         //get number of questions per subject
 
         $bio_quest = Question::where('subject_id', 1);

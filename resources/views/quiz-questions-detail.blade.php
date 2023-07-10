@@ -26,15 +26,18 @@
                                     </div>
                                 </div>
                                 <div class="uk-card-body">
-                                    <h4>
-                                        <a href="{{ route('single.question', [ $question->subject_id, $question->id]) }}">{{ $key + 1 . ')'}}  {!! $question->content !!}</a>
-                                    </h4>
-                                    <ol type="A">
-                                        <li>{{ $question->A }}</li>
-                                        <li>{{ $question->B }}</li>
-                                        <li>{{ $question->C }}</li>
-                                        <li>{{ $question->D }}</li>
-                                    </ol>
+                                    <a href="{{ route('single.question', [ $question->subject_id, $question->id]) }}"> 
+                                        <div class="uk-flex">
+                                            <div class="px-2">{{ $key + 1 . ')'}} </div>
+                                            <div>{!! $question->content !!}</a></div>
+                                        </div>
+                                        <ol type="A">
+                                            <li>{!! $question->A !!}</li>
+                                            <li>{!! $question->B !!}</li>
+                                            <li>{!! $question->C !!}</li>
+                                            <li>{!! $question->D !!}</li>
+                                        </ol>
+                                    </a>
                                 </div>
                             </div>
                         </div>

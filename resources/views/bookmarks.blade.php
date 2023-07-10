@@ -1,63 +1,21 @@
 @include('layouts.dashboard.main')
-<div class="container-fluid">
+<div class="container">
     <div class="row">
         <div class="col-lg-12">
             <div class="panel-content">
                 <h4 class="main-title">Bookmarks</h4>                
-                <div class="row merged20 mb-4">
-                    <div class="col-lg-8">
-                        <div class="d-widget">
-                            <div class="d-widget-title">
-                                <h5>All Bookmarks</h5>
-                            </div>
-                            <table class="table table-default table-responsive-md">
-                                <thead>
-                                    <th><h4 class="text-light">Bookmarked Quizzes</h4></th>
-                                    <th></th>
-                                    <th></th>
-                                </thead>
-                                <tbody>
-                                    @foreach ($user_bookmarks as $bookmark)
-                                    <tr>
-                                        <td class="text-capitalize">
-                                            <a href="{{ route('display.quiz.questions', $bookmark->quiz) }}">
-                                                <i class="icofont-folder h2 text-warning px-2"></i> 
-                                                <p style="font-weight:500;">{{ $bookmark->quiz->title }} </p>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('display.quiz.questions', $bookmark->quiz) }}">
-                                                <button class="button small primary">
-                                                    <i class="icofont-ui-play px-2"></i>
-                                                    Take quiz
-                                                </button>
-                                            </a>
-                                        </td>
-                                        <td><small><em style="color:#719ae1">Bookmarked {{ $bookmark->created_at->diffForHumans()}}</em></small></td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                <div class="row  mb-4">
+                    @foreach ($user_bookmarks as $bookmark)
+                        <div class="col-sm-3 text-center">
+                            <a href="{{ route('display.quiz', $bookmark->quiz) }}">
+                                <i class="icofont-folder px-2" style="font-size:78px;color:#00B2FF;"></i>
+                                <p class="fw-500" style="line-height:15px;">
+                                    {{ $bookmark->quiz->title }} <br>
+                                    <small class="text-primary">{{ $bookmark->quiz->questions->count() }} {{ Str::plural('question', $bookmark->quiz->questions->count()) }}</small>
+                                </p>
+                            </a>
                         </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="d-widget">
-                            <div class="d-widget-title">
-                                <h5>All Reviews</h5>
-                            </div>
-                            <table class="table-default manage-user table table-striped table-responsive-md">
-                                <tbody>
-                                    <tr>
-                                        <td><a href="#" title=""> Advance PHP Book</a></td>
-                                        <td>
-                                            <span class="iconbox button soft-primary"><i class="icofont-pen-alt-1"></i></span>
-                                            <span class="iconbox button soft-danger"><i class="icofont-trash"></i></span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>

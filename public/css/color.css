@@ -108,13 +108,13 @@ a.invite,
 .big-deals > a,
 .prod-detail > ul.item-info > li > a
 {
-	color: #088dcd;	
+	color: #4267B2;	
 }
 
 
 svg {
     fill: rgba(8, 141, 205, 0.09);
-    stroke: #088dcd;
+    stroke: #4267B2;
 }
 
 /*path.icon{
@@ -173,11 +173,11 @@ table.table-striped tbody tr td a.button:hover,
 .nav.nav-tabs.walllt-btn > li > a.active,
 .card-poup-meta > button
 {
-	background: #088dcd;
+	background: #4267B2;
 }
 
 .stroke-solid {
-	fill: #088dcd;
+	fill: #4267B2;
 }
 
 
@@ -218,15 +218,15 @@ ul.chatting-area li > figure img,
 .add-currency:hover,
 .walt-balance > a
 {
-	border-color: #088dcd;	
+	border-color: #4267B2;	
 }
 .user-tabs .nav-tabs > li > a.active,
 .checkbox label:after,
 .light-bg .uk-tab > li a.active{
-	border-bottom-color: #088dcd;
+	border-bottom-color: #4267B2;
 }
 .checkbox label:after{
-	border-left-color: #088dcd;
+	border-left-color: #4267B2;
 }
 
 

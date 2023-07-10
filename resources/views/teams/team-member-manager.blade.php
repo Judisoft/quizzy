@@ -15,15 +15,14 @@
 
                 <x-slot name="form">
                     <div class="col-span-6">
-                        <div class="max-w-xl text-sm text-gray-600">
+                        <div class="max-w-xl text-md font-bold text-gray-600">
                             {{ __('Please provide the email address of the person you would like to add to this team.') }}
                         </div>
                     </div>
 
                     <!-- Member Email -->
                     <div class="col-span-6 sm:col-span-4">
-                        <x-jet-label for="email" value="{{ __('Email') }}" />
-                        <x-jet-input id="email" type="email" class="mt-1 block w-full" wire:model.defer="addTeamMemberForm.email" />
+                        <x-jet-input id="email" type="email" placeholder="Email e.g johndoe@email.com" class="mt-1 block w-full" wire:model.defer="addTeamMemberForm.email" />
                         <x-jet-input-error for="email" class="mt-2" />
                     </div>
 
@@ -40,7 +39,7 @@
                                         <div class="{{ isset($addTeamMemberForm['role']) && $addTeamMemberForm['role'] !== $role->key ? 'opacity-50' : '' }}">
                                             <!-- Role Name -->
                                             <div class="flex items-center">
-                                                <div class="text-sm text-gray-600 {{ $addTeamMemberForm['role'] == $role->key ? 'font-semibold' : '' }}">
+                                                <div class="text-md font-bold text-gray-600 {{ $addTeamMemberForm['role'] == $role->key ? 'font-semibold' : '' }}">
                                                     {{ $role->name }}
                                                 </div>
 
@@ -50,7 +49,7 @@
                                             </div>
 
                                             <!-- Role Description -->
-                                            <div class="mt-2 text-xs text-gray-600 text-left">
+                                            <div class="mt-2 text-sm text-gray-600 text-left">
                                                 {{ $role->description }}
                                             </div>
                                         </div>
@@ -132,10 +131,10 @@
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center">
                                     <img class="w-8 h-8 rounded-full" src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}">
-                                    <div class="ml-4">{{ $user->name }}</div>
+                                    <div class="ml-4 font-bold">{{ $user->name }}</div>
                                 </div>
 
-                                <div class="flex items-center">
+                                <div class="flex items-center font-bold">
                                     <!-- Manage Team Member Role -->
                                     @if (Gate::check('addTeamMember', $team) && Laravel\Jetstream\Jetstream::hasRoles())
                                         <button class="ml-2 text-sm text-gray-400 underline" wire:click="manageRole('{{ $user->id }}')">

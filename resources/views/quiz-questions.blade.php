@@ -72,7 +72,7 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="text-right p-3"> {{ $questions->links() }} </div>
+                                    <div class="text-right p-3"> {{ $questions->links('pagination::bootstrap-4') }} </div>
                                 </div>
                             </div>
                         </div>

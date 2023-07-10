@@ -4,12 +4,12 @@
             <x-jet-authentication-card-logo />
         </x-slot>
 
-        <div class="mb-4 text-sm text-gray-600">
+        <div class="mb-4 font-medium text-md rounded-md p-3" style="color:rgb(2 132 199);border:1px solid rgb(2 132 199);background-color:rgb(224 242 254);">
             {{ __('Before continuing, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
         </div>
 
         @if (session('status') == 'verification-link-sent')
-            <div class="mb-4 font-medium text-sm text-green-600">
+        <div class="mb-4 font-bold text-md rounded-md p-3" style="color:rgb(2 132 199);border:1px solid rgb(2 132 199);background-color:rgb(224 242 254);">
                 {{ __('A new verification link has been sent to the email address you provided in your profile settings.') }}
             </div>
         @endif

@@ -119,7 +119,7 @@
                             <tr>
                                 <td colspan="1"></td>
                                 <td>
-                                    <a href="#" title="" class="button soft-danger">Your current plan</a>
+                                    <a href="#" title="" class="button soft-danger">Your plan</a>
                                 </td>
                                 <td>
                                     <a href="{{ route('payment', 'basic') }}" title="" class="button outline-primary">Choose Plan</a>

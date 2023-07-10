@@ -24,7 +24,7 @@
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                     @auth
-                        <a href="{{ url('/dashboard') }}" class="items-center px-4 py-2  rounded-md font-semibold text-xs text-gray-800 uppercase">Dashboard</a>
+                        <a href="{{ url('/home') }}" class="items-center px-4 py-2  rounded-md font-semibold text-xs text-gray-800 uppercase">Dashboard</a>
                     @else
                         <a href="{{ route('login') }}" class="items-center px-4 py-2 border border-dark border-2 rounded-md font-semibold text-xs text-gray-800 uppercase">Log in</a>
 

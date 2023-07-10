@@ -13,7 +13,7 @@
                             <div class="team"> <img alt="" src="{{ $user->profile_photo_url }}">
                                 <div class="team-info-sec">
                                     <div class="team-info">
-                                    <h3><a title="" href="#">{{ $user->name }}</a></h3>
+                                    <h3><a title="" href="{{ route('user.profile', $user->id) }}">{{ $user->name }}</a></h3>
                                     <span>{{__('Role:').' '.$user->membership->role }}</span>
                                 </div>
                                 </div>

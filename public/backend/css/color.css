@@ -27,7 +27,7 @@ table.table-default td > a,
 .price > span,
 .add-btn > a:hover
 {
-	color: #088dcd;	
+	color: #4267B2;	
 }
 
 
@@ -52,12 +52,12 @@ table.all-events tbody td .image-bunch > span,
 .form__button,
 .add-btn > a
 {
-	background: #088dcd;
+	background: #4267B2;
 }
 
 .stroke-solid,
 .apexcharts-canvas svg{
-	fill: #088dcd;
+	fill: #4267B2;
 }
 
 
@@ -67,8 +67,8 @@ table.all-events tbody td .image-bunch > span,
 =========================*/
 .add-btn > a:hover
 {
-	border-color: #088dcd;	
+	border-color: #4267B2;	
 }
 .form__input:focus{
-	border-bottom-color: #088dcd;
+	border-bottom-color: #4267B2;
 }

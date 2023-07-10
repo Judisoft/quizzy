@@ -6,17 +6,27 @@
 </a> --}}
 
 <style>
-    .logo-img{
-      height: 40px;
-      width: 40px; 
-      background-color: #4267B2;
-      padding: 3px;
-      border-radius: 10px;
+  @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=Pacifico&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@300&family=Josefin+Sans:wght@700&family=Libre+Baskerville:wght@700&family=Pacifico&family=Rowdies:wght@300&display=swap');
+  .logo{
+    font-family: 'Libre Baskerville', serif;
+    height: 45px;
+    width: 45px; 
+    padding: 2px;
+    background-color: #4267B2;
+    color:#fff;
+    font-size: 28px;
+    border-radius: 5px;
       
-    }
-  </style>
+  }
+  a{
+    font-family: 'Rowdies', sans-serif;
+    color: #4267B2;
+    font-size: 26px;
+  }
+</style>
   
 <div class="flex justify-center">
-  {{-- <img src="{{ asset('images/white-icon.png') }}" class="logo-img"/> --}}
-  <a href="{{ route('home') }}" class="py-2 px-4 text-xl font-bold">QUIZZY</a>
+  <button class="logo">Q</button>
+  <a href="{{ route('home') }}" class="px-2">Quizzy</a>
 </div>

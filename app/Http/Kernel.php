@@ -67,5 +67,10 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\IsAdmin::class,
         'trial' => \App\Http\Middleware\isTrialValid::class,
         'quiz.attempt' => \App\Http\Middleware\isQuizAttemptValid::class,
+        'weekly.challenge' => \App\Http\Middleware\WeeklyChallengeMiddleware::class,
+        'valid.quiz.taker' => \App\Http\Middleware\isUserValidToTakeQuiz::class,
+        'profile' => \App\Http\Middleware\isProfileComplete::class,
+        'alter.question' => \App\Http\Middleware\canAlterQuestion::class,
+        'challenge.attempt' => \App\Http\Middleware\isChallengeAttemptValid::class,
     ];
 }

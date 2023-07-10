@@ -11,6 +11,10 @@ class NewsletterController extends Controller
     {
         $validated = $request->validate([
             'email' => 'required|unique:newsletters|max:255'
+        ],
+        [
+            'email.required' => 'This email has already subscribed to our newsletter'
+            
         ]);
 
         $newsletter = new Newsletter;

@@ -15,69 +15,62 @@
     <link rel="stylesheet" href="css/responsive.css">
 	<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 	<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=Pacifico&display=swap');
+		@import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@300&family=Josefin+Sans:wght@700&family=Libre+Baskerville:wght@700&family=Pacifico&family=Rowdies:wght@300&display=swap');
+	</style>
 </head>
+<style>
+	h1 {
+		font-weight:900;
+	}
+	.title > h1 {
+		font-weight: 900;
+	}
+</style>
 <body>
 <div class="page-loader" id="page-loader">
   <div class="loader">
-  	<span class="loader-item"></span><span class="loader-item"></span><span class="loader-item"></span><span class="loader-item"></span><span class="loader-item"></span><span class="loader-item"></span><span class="loader-item"></span>
+  	<span class="loader-item"></span><span class="loader-item"></span><span class="loader-item"></span><span class="loader-item"></span><span class="loader-item"></span>
   </div>
 </div><!-- page loader -->
-<div class="theme-layout">
+<div class="theme-layout" style="overflow-x:hidden !important;">
 	<div class="responsive-header">
-		<div class="logo res"><span>StudPort CM</span></div>
+		<div class="logo">
+            <a href="{{ route('home') }}" class="px-2" style="font-family: 'Rowdies', sans-serif;color: #4267B2;font-size: 24px;">
+				<button style="font-family: 'Libre Baskerville', serif;height: 38px;width: 38px; padding: 1px;background-color: #4267B2; border:none;color:#fff;font-size: 24px;border-radius: 5px;">Q</button>
+				Quizzy
+			</a>
+		</div>
 		<div class="right-compact">
 			<div class="sidemenu">
 				<i><svg id="side-menu2" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></i>
 			</div>
 			<div class="res-search">
-				<span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></span>
+				@if(Auth::guest())
+					<a href="{{route('login')}}"><span><svg id="ab1" class="feather feather-users" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="26" width="26" xmlns="http://www.w3.org/2000/svg"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle r="4" cy="7" cx="9"/></svg></span></a>
+				@else
+					<a href="{{route('dashboard')}}"><span><svg id="ab1" class="feather feather-users" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="26" width="26" xmlns="http://www.w3.org/2000/svg"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle r="4" cy="7" cx="9"/></svg></span></a>
+				@endif
 			</div>
 			
-		</div>
-		<div class="restop-search">
-			<span class="hide-search"><i class="icofont-close-circled"></i></span>
-			<form method="post">
-				<input type="text" placeholder="Search...">
-			</form>
 		</div>
 	</div><!-- responsive header -->
 	
 	<header class="transparent">
 		<div class="topbar">
-			<div class="logo"><img src="images/logo.png" alt=""><span>StudPort CM</span></div>
-			<div class="searches">
-				<form method="post">
-					<input type="text" placeholder="Search...">
-					<button type="submit"><i class="icofont-search"></i></button>
-					<span class="cancel-search"><i class="icofont-close"></i></span>
-					<div class="recent-search">
-						<h4 class="recent-searches">Your's Recent Search</h4>
-						<ul class="so-history">
-							<li>
-								<div class="searched-user">
-									<span>Maria K</span>
-								</div>
-								<span class="trash"><i class="icofont-close-circled"></i></span>
-							</li>
-							<li>
-								<div class="searched-user">
-									<span>Fawad Khan</span>
-								</div>
-								<span class="trash"><i class="icofont-close-circled"></i></span>
-							</li>
-							<li>
-								<div class="searched-user">
-									<span>Jack Carter</span>
-								</div>
-								<span class="trash"><i class="icofont-close-circled"></i></span>
-							</li>
-						</ul>
-					</div>
-				</form>
+			<div class="logo">
+				<a href="{{ route('home') }}" class="px-2" style="font-family: 'Rowdies', sans-serif;color: #fff;font-size: 24px;">
+					<button style="font-family: 'Libre Baskerville', serif;height: 38px;width: 38px; padding: 1px;background-color: #4267B2; border:none;color:#fff;font-size: 24px;border-radius: 5px;">Q</button>
+					Quizzy
+				</a>
 			</div>
 			<ul>
-				<li><a href="{{ route('dashboard') }}" title="">Dashboard</a></li>
-				<li><a href="{{ route('plans') }}" title="">Plans</a></li>
+				@if(Auth::check())
+					<li><a href="{{ route('dashboard') }}" title="">Dashboard</a></li>
+				@endif
+				<li><a href="{{ route('community') }}" title="">Community</a></li>
+				<li><a href="{{ route('plans') }}" title="">Pricing</a></li>
 				<li><a href="{{ route('contact') }}" title="">contact</a></li>
 				<li><a href="{{ route('help') }}" title="">help center</a></li>
 				@if(Auth::guest())
@@ -88,10 +81,71 @@
 			</ul>
 		</div>
 	</header>
-	
+	<nav class="sidebar">
+		<ul class="menu-slide">
+			<li class="active menu-item-has-children">
+				<a class="" href="{{ route('home') }}" title="">
+					<i><svg id="icon-home" class="feather feather-home" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></i> Home
+				</a>
+				<ul class="submenu">
+					@if(Auth::check()) <li><a href="{{ route('dashboard') }}" title="">Dashboard</a></li> @endif
+					<li><a href="#" title="">Community</a></li>
+				</ul>
+			</li>
+			<li class="menu-item-has-children">
+				<a class="" href="#" title="">
+					 <i class="">
+					<svg id="ab5" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-bag"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg></i> Products
+				</a>
+				<ul class="submenu">
+					<li><a href="#" title="">Medxam</a></li>
+				</ul>
+			</li>
+			<li class="menu-item-has-children">
+				<a class="" href="#" title="">
+					<svg id="ab4" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-airplay"><path d="M5 17H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1"></path><polygon points="12 15 17 21 7 21 12 15"></polygon></svg></i> Support
+				</a>
+				<ul class="submenu">
+					<li><a href="{{ route('contact') }}" title="">Contact</a></li>
+					<li><a href="{{ route('help') }}" title="">Help</a></li>
+				</ul>
+			</li>
+			@if(Auth::guest())
+				<li class="">
+					<a class="" href="{{ route('register') }}" title="">
+						<i><svg id="ab1" class="feather feather-users" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle r="4" cy="7" cx="9"/></svg></i>
+						Register
+					</a>
+				</li>
+				<li class="">
+					<a class="" href="{{ route('login') }}" title="">
+						<i class="">
+						<svg id="ab9" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-lock"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></i> 
+						Login
+					</a>
+				</li>
+			@endif
+			<li class="">
+				<a class="#" href="{{ route('plans') }}" title="">
+					<i class="">
+					<svg id="team" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-smile"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg></i> Plans
+				</a>
+			</li>
+			<li class="menu-item-has-children">
+				<a class="" href="messages.html" title="">
+					<i class="">
+					<svg class="feather feather-message-square" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="currentColor" fill="none" viewBox="0 0 24 24" height="14" width="14" xmlns="http://www.w3.org/2000/svg" id="ab2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" style="stroke-dasharray: 68, 88; stroke-dashoffset: 0;"/></svg></i> Language
+				</a>
+				<ul class="submenu">
+					<a href="#" title=""><img src="images/flags/US.png" height="14" width="14" alt=""> En</a>
+				</ul>
+			</li>
+			
+		</ul>
+	</nav><!-- nav sidebar -->
 	<section>
 		<div class="gap overlap nogap mate-black low-opacity">
-			<div class="bg-image" style="background-image: url(images/resources/index.svg)"></div>
+			<div class="bg-image" style="background-image: url(images/resources/landing.jpg)"></div>
 			<div class="feature-meta">
 				<h1>Engaging <span>Learners</span> through interactive quizzes</h1>
 				<h3><span></span> quizzes</h3>
@@ -108,7 +162,7 @@
 						<div class="info-sec">
 							<i class="icofont-users-alt-3"></i>
 							<div>
-								<h6>Engage everyone, everywhere!</h6>
+								<h6>Engage everyone</h6>
 								<p>Free tools to teach and learn anything, on any device, in‑person or remotely.</p>
 							</div>
 						</div>
@@ -141,8 +195,7 @@
 				<div class="row remove-ext30" style="border-radius:5px;">
 					<div class="col-lg-12">
 						<div class="title">
-							<h1>Getting started is <span style="color:#6C63FF;text-decoration:underline;">FREE</span> and easy!</h1>
-							<figure><img alt="" src="images/resources/underline.svg"></figure>
+							<h1>Getting started is <span style="color:#4267B2;text-decoration:underline;">FREE</span> and easy!</h1>
 						</div>
 					</div>
 					<div class="col-lg-3 col-md-3 col-sm-3" data-aos="fade-right">
@@ -222,7 +275,7 @@
 					<div class="col-lg-7 col-md-7">
 						<div class="verticle-center">
 							<div class="measure">
-								<h1>Make it stick with <span style="color:#6C63FF;">motivating assessment and practice.</span></h1>
+								<h1>Make it stick with <span style="color:#4267B2;">motivating assessment and practice.</span></h1>
 								<div class="text-center"><figure><img src="images/resources/three-lines2.svg" alt=""></figure></div>
 								<div class="d-flex flex-colum">
 									<div class="p-2 mt-2">
@@ -259,7 +312,7 @@
 						</div>	
 					</div>
 					<div class="col-lg-5 col-md-5" data-aos="zoom-in">
-						<img src="images/resources/practice.png" alt="">
+						<img src="images/resources/result.png" alt="">
 					</div>
 				</div>
 			</div>
@@ -306,22 +359,20 @@
 					<div class="col-lg-7 col-md-7">
 						<div class="verticle-center">
 							<div class="measure">
-								<h1>Quizzy is used accross the <span style="color:#6C63FF;">globe</span></h1>
+								<h1>Quizzy is used accross the <span style="color:#4267B2;">globe</span></h1>
 								<div><figure><img src="images/resources/three-lines2.svg" alt=""></figure></div>
 								<div class="p-3">
 									<div class="d-flex flex-row">
 										<div class="p-2">
-											<figure><img src="images/resources/user5.jpg" alt="" class="testimonial-img"></figure>
+											<figure><img src="images/resources/user_admin.jpg" height="120" width="120" alt="" style="border-radius:50%;border:3px solid #ccc;" ></figure>
 										</div>
 										<div class="p-2">
-											<p>
-												Quizy motivates [students], increases confidence, and can help to establish a culture of learning and growing from mistakes
+											<p class="">
+												Quizy motivates students, increases confidence, and can help to establish a culture of learning and growing from mistakes
+												<a href="#" class="text-primary">... read more </a>
 											</p>
 										</div>
 									</div>
-								</div>
-								<div class="mt-2 mb-5">
-									<a href="{{ URL::to('resources/past-questions') }}" class="button p-3" style="background-color:#6C63FF;font-weight:700;">FIND OUT MORE<i class="icofont-arrow-right"></i></a>
 								</div>
 							</div>
 						</div>	
@@ -345,7 +396,7 @@
 							<div class="measure">
 								<div data-aos="fade-right">
 									<h6 style="font-weight:700;">ASSESSMENT AND PRACTICE</h6>
-									<h1><span style="color:#6C63FF;">Beyond </span>Multiple Choice</h1>
+									<h1><span style="color:#4267B2;">Beyond </span>Multiple Choice</h1>
 								</div>
 								<div class="p-3">
 									<div class="info-sec mt-2" data-aos="slide-up">
@@ -376,7 +427,7 @@
 		</div>
 	</section>
 	<section>
-		<h1 class="text-center p-3" style="font-size:48px;font-weight:900;">We've got ready-made <span style="color:#6C63FF;">Quizzes</span> for you</h1>
+		<h1 class="text-center p-3" style="font-size:48px;">We've got ready-made <span style="color:#4267B2;">Quizzes</span> for you</h1>
 		<div class="text-center"><figure><img src="images/resources/three-lines2.svg" alt=""></figure></div>
 		<div class="gap mate-black">
 			<div class="bg-image" style="background-image: url(images/resources/profile-banner.jpg);"></div>
@@ -417,12 +468,12 @@
 				<figure><img src="images/resources/hat.svg" alt=""></figure>
 				<div class="row">
 					<div class="col-lg-6 col-md-6" data-aos="fade-right">
-						<img src="images/resources/create_quiz.svg" alt="">
+						<img src="images/resources/passion.svg" alt="">
 					</div>
 					<div class="col-lg-6 col-md-6">
 						<div class="verticle-center">
 							<div class="measure right">
-								<div data-aos="fade-left"><h1>Explore what drives your <span style="color: #6C63FF;">passion</span></h1></div>
+								<div data-aos="fade-left"><h1>Explore what drives your <span style="color: #4267B2;">passion</span></h1></div>
 								<div data-aos="zoom-in">
 									<p class="pt-4">
 										<a href="#" title="">English Language and Arts</a>
@@ -432,7 +483,7 @@
 										<a href="#" title="">Creative Arts</a>
 										<a href="#" title="">Computer Science and Skills</a>
 										<a href="#" title="">Career and Technical Education</a>
-										<div data-aos="flip-right"><a href="#" title="" class="bg-info text-light">Explore More <span class="icofont-plus"></span></a></div>
+										<div data-aos="flip-right"><a href="#" title="" class="bg-primary text-light">Explore More <span class="icofont-plus"></span></a></div>
 									</p>
 								</div>
 							</div>	
@@ -472,20 +523,20 @@
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="title">
-							<h1>Why you should be using <span style="color:#6C63FF;text-decoration:underline;">Quizzy</span></h1>
+							<h1>Why you should be using <span style="color:#4267B2;text-decoration:underline;">Quizzy</span></h1>
 							<figure><img alt="" src="images/resources/three-lines2.svg"></figure>
 						</div>
 					</div>
 					<div class="col-lg-2 col-md-2 col-sm-2" data-aos="fade-right">
 						<figure><img alt="" src="images/resources/clock.svg" style="width:50px!important;height:50px!important;"></figure>
-						<h5>Saves teachers <span style="color:#6C63FF">4hrs/week</span></h5>
+						<h5>Saves teachers <span style="color:#4267B2">over 4hrs/week</span></h5>
 					</div>
 					<div class="col-lg-1 col-md-1 col-sm-1" data-aos="fade-left">
 						<figure><img alt="" src="images/resources/arrow3.svg"></figure>
 					</div>
 					<div class="col-lg-2 col-md-2 col-sm-2" data-aos="slide-up">
 						<figure class="mt-5"><img alt="" src="images/resources/memo.svg"></figure>
-						<h5>Improve test scores up to <span style="color: #6C63FF">50%</span></h5>
+						<h5>Improve test scores up to <span style="color: #4267B2">50%</span></h5>
 					</div>
 					<div class="col-lg-2 col-md-2 col-sm-2" data-aos="fade-left">
 						<figure><img alt="" src="images/resources/arrow4.svg"></figure>
@@ -508,7 +559,7 @@
 	<section>
 		<div class="d-flex justify-content-center">
 			<div class="p-1">
-				<h1 class="text-center p-3 mt-5" style="font-size:48px;font-family: 'Pacifico', cursive;color:#212121;">Loved by <span style="color:#6C63FF;">teachers</span> and <span style="color:#6C63FF;">school admins</span></h1>
+				<h1 class="text-center p-3 mt-5" style="font-size:48px;cursive;color:#212121;">Loved by <span style="color:#4267B2;">teachers</span> and <span style="color:#4267B2;">school admins</span></h1>
 			</div>
 			<div class="p-1 pt-3 mt-5">
 				<figure><img src="images/resources/heart-fun.svg" alt=""></figure>
@@ -578,93 +629,24 @@
 			</div>
 		</div>
 	</section>
-	<footer>
-		<div class="gap">
-			<div class="bg-image" style="background-image: url(images/resources/footer-bg.png)"></div>
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-3 col-md-6 col-sm-6">
-						<div class="web-info">
-							<div class="logo"><img src="images/logo.png" alt=""><span>StudPort CM</span></div>
-							<p>Subscribe our newsletter for getting notifications and alerts</p>
-							<div class="contact-little">
-								<span><i class="icofont-phone-circle"></i> +237-672-0769-995</span>
-								<span><i class="icofont-email"></i> <a href="mailto: contact@studentportal-cm.com" class="__cf_email__">contact@studentportal-cm.com</a></span>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-2 col-md-3 col-sm-6">
-						<div class="widget">
-							<div class="widget-title">
-								<h4>Company</h4>
-							</div>
-							<ul class="quick-links">
-								<li><a href="#" title="">About Us</a></li>
-								<li><a href="#" title="">Career</a></li>
-								<li><a href="#" title="">Privacy</a></li>
-								<li><a href="#" title="">Terms</a></li>
-								<li><a href="#" title="">FAQ</a></li>
-								<li><a href="#" title="">Contact</a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-lg-2 col-md-3 col-sm-6">
-						<div class="widget">
-							<div class="widget-title">
-								<h4>Quick Links</h4>
-							</div>
-							<ul class="quick-links">
-								<li><a href="#" title="">Product</a></li>
-								<li><a href="#" title="">Market</a></li>
-								<li><a href="#" title="">Courses</a></li>
-								<li><a href="#" title="">Services</a></li>
-								<li><a href="#" title="">Enterprise</a></li>
-								<li><a href="#" title="">Sitemap</a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-lg-2 col-md-4 col-sm-6">
-						<div class="widget">
-							<div class="widget-title">
-								<h4>Follow Us</h4>
-							</div>
-							<ul class="quick-links">
-								<li><a href="#" title=""><i class="icofont-facebook"></i>facebook</a></li>
-								<li><a href="#" title=""><i class="icofont-twitter"></i>twitter</a></li>
-								<li><a href="#" title=""><i class="icofont-instagram"></i>instagram</a></li>
-								<li><a href="#" title=""><i class="icofont-google-plus"></i>google +</a></li>
-								<li><a href="#" title=""><i class="icofont-whatsapp"></i>whatsapp</a></li>
-								<li><a href="#" title=""><i class="icofont-reddit"></i>reddit</a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-6 col-sm-6">
-						<div class="widget">
-							<div class="widget-title">
-								<h4>Download App</h4>
-							</div>
-							<div class="news-lettr">
-								<a href="#" title=""><img src="images/android.png" alt=""></a>
-								<a href="#" title=""><img src="images/apple.png" alt=""></a>
-								<a href="#" title=""><img src="images/windows.png" alt=""></a>
-							</div>	
-						</div>
-					</div>
-				</div>
+	@include('layouts.frontend.footer')
+	<div class="auto-popup">
+		<div class="text-center"><figure><img src="images/resources/experience.webp" alt=""></figure></div>
+		<div class="popup-innner">
+			<div class="popup-head">
+				<img src="{{ asset('images/resources/quizzy-logo.png') }}" class="menu-img" alt="">
+				<h4 class="text-center"> An awesome new Quiz platform for learners and teachers is comming very soon. <br> Enter your email to address an early invitation!</h4>
+				<small>We are nearly complete</small>
+			</div>
+			<div class="popup-meta text-center">
+				<form method="post" class="inquiry-about uk-margin">
+					<input type="text" class="uk-text" placeholder="Enter Email">
+					<button type="submit" class="primary button">Notify me</button>
+					<button class="canceled button outline-primary" type="button">I'd love to come back later</button>
+				</form>
 			</div>
 		</div>
-	</footer><!-- footer -->
-	
-	<div class="bottombar">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<span class="">&copy; copyright All rights reserved <script>document.write(new Date().getFullYear())</script> StudentPortal</span>
-				</div>
-			</div>
-		</div>
-	</div><!-- bottombar -->
-	
+	</div> <!-- auto popup --> 
 </div>
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script src="js/main.min.js"></script>

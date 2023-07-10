@@ -11,7 +11,7 @@ class ContactFormController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required',
-            'email' => 'required|unique:newsletters|max:255',
+            'email' => 'required|max:255',
             'institution' => 'nullable',
             'role' => 'required',
             'message' => 'required|min:9|max:1999'
@@ -28,7 +28,7 @@ class ContactFormController extends Controller
 
         if($contact->id)
         {
-            $request->session()->flash('success', 'Thank you for Contacting Quizzy.');
+            $request->session()->flash('success', 'Thank you for Contacting Quizzy. We shall respond to your message as soon as possible');
         } else {
             $request->session()->flash('error', 'Oups! Something went wrong! Try again');
         }

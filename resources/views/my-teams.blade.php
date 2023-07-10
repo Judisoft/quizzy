@@ -24,12 +24,12 @@
                             @endcan
                         </div>
                         <div class="col-lg-8 col-md-12 col-sm-12">
-                            <div class="d-widget">
+                            <div class="d-widget mt-4">
                                 <div class="d-widget-title">
                                     <h5>Team Invitations</h5>
                                 </div>
                                 <table class="table-default manage-user table table-striped table-responsive-md">
-                                    @if ($team->teamInvitations->isNotEmpty() && Gate::check('addTeamMember', $team))
+                                    @if (count($invitations) > 0)
                                         <thead>
                                             <tr>
                                                 <th>Email</th>
@@ -40,7 +40,7 @@
                                         </thead>
                                     @endif
                                     <tbody>
-                                        @forelse ($team->teamInvitations as $invitation)
+                                        @forelse ($invitations as $invitation)
                                             <tr>
                                                 <td>{{ $invitation->email }}</td>
                                                 <td>{{$invitation->team->name  }}</td>

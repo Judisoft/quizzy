@@ -2,20 +2,22 @@
 
 # Dear {{ auth()->user()->name }},
 
-Thank you so much for giving Quizzy a try.
+Thank you for giving Quizzy a try.
 
 Payment details are as follows:
 
-Mobile Money: 672 076 996 <br>
+Mobile Money: 672 076 995 <br>
 Account Name: Kum Jude Bama <br>
 
 
-Amount: {{ $amount }}
+Amount: {{ $amount }} FCFA
 
 <br>
 
+Kindly validate your payment using the button below.
+
 @component('mail::button', ['url' => route('validate.payment', $payment->id)])
-{{ __('validate payment') }}
+{{ __('click here to validate payment') }}
 @endcomponent
 
 Best regards,<br>

@@ -83,7 +83,7 @@
 
         @endforelse
         {{-- @if(count($user_questions) > 25) --}}
-            <div class="text-right p-2 ml-3 mb-3"> {{ $user_questions->links() }} </div>
+            <div class="text-right p-2 ml-3 mb-3"> {{ $user_questions->links('pagination::bootstrap-4') }} </div>
         {{-- @endif --}}
     </div>
 </x-app-layout>

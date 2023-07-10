@@ -68,4 +68,8 @@ class Quiz extends Model
         return $this->save();
     }
 
+    public function shares()
+    {
+        return $this->hasMany(Like::class);
+    }
 }

@@ -28,7 +28,10 @@ class PaymentController extends Controller
         } 
         elseif($plan == 'ultimate') {
             $amount = 5000;
-        } else {
+        } elseif($plan == 'ultimate-plus') {
+            $amount = 10000;
+        }
+        else {
             return abort(503);
         }
 
@@ -62,7 +65,11 @@ class PaymentController extends Controller
         if($payment->id)
         {
             Mail::to(Auth::user()->email)->send(new PaymentDetail($payment));
-            return redirect()->back()->with('success', 'Payment Information has been submitted successfully. Thank you!');
+            return redirect()->back()->with('success', 
+                                            'Your payment request has been submitted successfully. 
+                                            We have sent you an email
+                                            containing payment details. Thank you!'
+                                        );
         }
 
         else{

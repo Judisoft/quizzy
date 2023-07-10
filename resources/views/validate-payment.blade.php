@@ -35,7 +35,7 @@
                                 <input type="text" name="transaction_id" placeholder="Transaction ID" style="width:100%;">
                             </div>
                             <div class="p-2 flex flex-row justify-center">
-                                <button type="submit" class="inline-flex items-center justify-center px-4 mt-3 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-500 focus:outline-none focus:border-red-700 focus:ring focus:ring-red-200 active:bg-red-600 disabled:opacity-25 transition">Validate</button>
+                                <button type="submit" class="inline-flex items-center justify-center px-4 mt-3 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-500 focus:outline-none focus:border-red-700 focus:ring focus:ring-red-200 active:bg-red-600 disabled:opacity-25 transition">Validate</button>
                             </div>
                         </div>
                     </form>

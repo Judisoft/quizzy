@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\QuizUpdate;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use App\Models\Question;
 use App\Models\Subject;
 use App\Models\Level;
+use App\Models\PerformanceAnalysis;
 use App\Models\Quiz;
 use App\Models\QuizQuestion;
 use App\Models\QuizScore;
@@ -22,25 +24,15 @@ class QuizController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('quiz.attempt')->only(['quizGenerator']);
-    }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function displayQuizzes()
-    {
-        $subjects = Subject::all();
-
-        return view('quizzes', compact('subjects'));
+        $this->middleware(['quiz.attempt', 'valid.quiz.taker'])->only(['quizGenerator']);
     }
 
+ 
     public function quizGenerator(Quiz $quiz, Request $request)
     {
-        // set cookie
-        if(Auth::guest()){//guest user identified by ip
-            $cookie_name = (Str::replace('.','',($request->ip())).'-'. $quiz->id);
+        // set cookie to prevent view count on page refresh
+        if(Auth::guest()){ 
+            $cookie_name = (Str::replace('.','',($request->ip())).'-'. $quiz->id); //guest user identified by ip
             } else {
                 $cookie_name = (Auth::user()->id.'-'. $quiz->id);//logged in user
             }
@@ -63,9 +55,10 @@ class QuizController extends Controller
         {
             // Deny access
             $quiz_attempts = $quiz->attempts_permitted;
-            $error_message = "The author of this quiz has placed a restriction to the number of times you can take this quiz to".' '.$quiz_attempts;
+            $error_message = 'The author of this quiz has placed a restriction to the number of times you can take this quiz to'.' '.$quiz_attempts;
             
-            return view('403', compact('error_message'));
+            // return view('403', compact('error_message'));
+            return back()->with('error', $error_message);
         }
         
         $subjects = Subject::all();        
@@ -88,7 +81,12 @@ class QuizController extends Controller
                             ->whatsapp()        
                             ->reddit();
         $users = User::all();
-        return view('quiz-detail', compact('questions', 'subjects', 'quiz', 'quiz_time', 'quiz_points', 'share_btn', 'users'));
+        $high_score = QuizScore::where('quiz_id', $quiz->id)->where('user_id', Auth::user()->id)->max('score'); // user's highscore
+        $quiz_high_score = QuizScore::where('quiz_id', $quiz->id)->max('score');
+        $ranks = QuizScore::select('user_id')->where('quiz_id', $quiz->id)->distinct()->orderBy('score', 'DESC')->Paginate(50);
+        $total_quiz_takers = QuizScore::select('user_id')->where('quiz_id', $quiz->id)->distinct()->get()->count();
+       
+        return view('quiz-detail', compact('questions', 'subjects', 'quiz', 'quiz_time', 'quiz_points', 'share_btn', 'users', 'ranks', 'total_quiz_takers', 'high_score', 'quiz_high_score'));
         
 
     }
@@ -107,41 +105,38 @@ class QuizController extends Controller
 
     function saveQuizName(Request $request)
     {
-        
-        $validator = $request->validate([
+
+        $validator = Validator::make($request->all(), [
             'title' => 'required|min:3|unique:quizzes',
             'duration' => 'nullable',
             'slug' => 'nullable'
             ],
             [
                 'title.required'=> 'Quiz title cannot be empty',
-                'title.unique' => 'This name is already taken',
+                'title.unique' => 'This quiz name is not available',
                 'title.min' => 'Quiz title too short'
             ]);
+        if ($validator->fails())
+        {
+            return response()->json([
+                'error' => $validator->errors()
+                ]);
 
-       
-        $quiz = new Quiz;
-        $quiz->title = $request->title;
-        $quiz->slug = Str::slug($request->title, '-');
-        $quiz->subject_id = $request->subject_id;
-        $quiz->user_id = $request->user_id;
-        $quiz->team_id = Auth::user()->current_team_id;
-        // $quiz->subject_id = 1;
+        } else {
+            $quiz = new Quiz;
+            $quiz->title = $request->title;
+            $quiz->slug = Str::slug($request->title, '-');
+            $quiz->subject_id = $request->subject_id;
+            $quiz->user_id = $request->user_id;
+            $quiz->team_id = Auth::user()->current_team_id;
+            // $quiz->subject_id = 1;
 
-        $quiz->save();
-        // Send user email
-        // $team = User::find(Auth::user()->current_team);
-        //     $users = $team->users;
-        //     foreach($users as $key=>$user)
-        //     {
-        //         Mail::to($user->email)->send(new QuizUpdate($user));
-        //     }
+            $quiz->save();
 
             return response()->json([
-                'success' => 'Quiz successfully created',
-                'quiz' => $quiz->id
-            ]);
-
+                'success' => 'Quiz created'
+                ]);
+        }
     }
 
     /**
@@ -231,7 +226,7 @@ class QuizController extends Controller
 
     public function addQuizQuestions($subject_id,$quiz_id)
     {
-        $questions = Question::where('subject_id', $subject_id)->orderBy('subject_id')->simplePaginate(25);
+        $questions = Question::where('subject_id', $subject_id)->orderBy('subject_id')->paginate(25);
         $user_quiz = Quiz::find($quiz_id);
         $subject = Subject::find($subject_id);
         return view('add-quiz-questions', compact('questions', 'user_quiz', 'subject'));
@@ -244,13 +239,14 @@ class QuizController extends Controller
 
         if($search)
         {
-            $quizzes = Quiz::query()->where('title', 'LIKE', "%{$search}%")->with('subject')->get();
+            $quizzes = Quiz::query()->where('title', 'LIKE', "%{$search}%")->with('subject')->orderBy('id', 'DESC')->paginate(25);
         } else {
-            $quizzes =  Quiz::has('subject')->get();
+            $quizzes =  Quiz::with('subject')->orderBy('id', 'DESC')->paginate(25);
         }
 
-        // dd($quizzes);
-        return view('all-quizzes', compact('quizzes'));
+        $subjects = Subject::all();
+
+        return view('all-quizzes', compact('quizzes', 'subjects'));
     }
 
 

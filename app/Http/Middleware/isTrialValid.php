@@ -23,7 +23,7 @@ class isTrialValid
 
         if($end_of_trial <= Carbon::now() && Auth::user()->is_premium == 0) {
 
-            return redirect('payment')->with('success', 'Your Trial Period is over. Kindly subscribe to continue using Medxam ');
+            return back()->with('message', 'Your Trial Period is over. Kindly subscribe to continue using Quizzy ');
         }
 
         return $next($request);
